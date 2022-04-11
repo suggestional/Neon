@@ -28,6 +28,10 @@ const routes = [
         component: () => import('@/views/SettingsPage.vue')
       }
     ]
+  },
+  {
+    path: '/tabs/learnWord',
+    component: () => import('@/views/LearnWord.vue')
   }
 ]
 

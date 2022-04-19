@@ -16,13 +16,37 @@ class Unit {
     generateExercises() {
         let exercises = [];
 
-        this.words.forEach(function(word) {
-           exercises.push(word.generateExercise());
+        this.words.forEach(function (word) {
+            exercises.push(word.generateExercise(this));
         });
 
-        // todo: shuffle(exercises)
+        // Fisher-Yates shuffle
+        let l = exercises.length;
+        while (l > 0) {
+            let index = Math.floor(Math.random() * l)
+            let tmp = exercises[l - 1];
+            exercises[l - 1] = exercises[index];
+            exercises[index] = tmp;
+            l--;
+        }
 
         return exercises;
+    }
+
+    /**
+     * @function chooseWordForOptions
+     * @description 为一个单词在本单元内生成练习题的3个其他单词作为错误选项
+     * @return {Array<Word>} 单词组
+     */
+    chooseWordForOptions(word) {
+        let results = [];
+        let totalLength = this.words.length;
+        while (results.length < 3) {
+            let chosen = this.words[Math.floor(Math.random() * totalLength)];
+            if (!chosen.equals(word))
+                results.push(chosen)
+        }
+        return results;
     }
 }
 

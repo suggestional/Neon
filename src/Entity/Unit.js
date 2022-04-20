@@ -24,7 +24,7 @@ class Unit {
         // Fisher-Yates shuffle
         let l = exercises.length;
         while (l > 0) {
-            let index = Math.floor(Math.random() * l)
+            let index = Math.floor(Math.random() * l);
             let tmp = exercises[l - 1];
             exercises[l - 1] = exercises[index];
             exercises[index] = tmp;

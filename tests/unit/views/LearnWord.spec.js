@@ -20,7 +20,7 @@ describe('LearnWord.vue Test', () => {
         expect(wrapper.findAll('ion-card-content').at(0).text()).toMatch('显示单词详细信息 例句等等')
 
         expect(wrapper.findAll('ion-button').at(0).text()).toMatch('下一个')
-        expect(wrapper.findAll('ion-button').at(1).text()).toMatch('上一个')
+             expect(wrapper.findAll('ion-button').at(1).text()).toMatch('上一个')
 
     })
 

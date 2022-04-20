@@ -16,9 +16,10 @@ class Unit {
     generateExercises() {
         let exercises = [];
 
-        this.words.forEach(function (word) {
-            exercises.push(word.generateExercise(this));
-        });
+        let wordsLen = this.words.length;
+        for(var i = 0; i < wordsLen; ++i) {
+            exercises.push(this.words[i].generateExercise(this));
+        }
 
         // Fisher-Yates shuffle
         let l = exercises.length;

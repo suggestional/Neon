@@ -6,37 +6,42 @@
 
 import Word from "@/Entity/Word";
 import Unit from "@/Entity/Unit";
+import Option from "@/Entity/Option";
 
 // todo: more test cases
+// const words = [
+//   {
+//     japanese: "日语1",
+//     chinese: "中文1",
+//     kana: "假名1",
+//     example: "例句1",
+//   },
+//   {
+//     japanese: "日语2",
+//     chinese: "中文2",
+//     kana: "假名2",
+//     example: "例句2",
+//   },
+//   {
+//     japanese: "日语3",
+//     chinese: "中文3",
+//     kana: "假名3",
+//     example: "例句3",
+//   },
+// ];
+
 const words = [
-  {
-    japanese: "日语1",
-    chinese: "中文1",
-    kana: "假名1",
-    example: "例句1",
-  },
-  {
-    japanese: "日语2",
-    chinese: "中文2",
-    kana: "假名2",
-    example: "例句2",
-  },
-  {
-    japanese: "日语3",
-    chinese: "中文3",
-    kana: "假名3",
-    example: "例句3",
-  },
+  new Word("日语1", "中文1", "假名1", "例句1"),
+  new Word("日语2", "中文2", "假名2", "例句2"),
+  new Word("日语3", "中文3", "假名3", "例句3")
 ];
+
 const unit = new Unit(words);
 const exercises = unit.generateExercises();
 
 // todo: question types; audio? kana + chinese character?
-const JAPANESE = 1;
-const CHINESE = 2;
-const KANA = 3;
-const questionTypes = [KANA, CHINESE];
-const optionTypes = [KANA, CHINESE];
+const questionTypes = [Option.KANA, Option.CHINESE];
+const optionTypes = [Option.KANA, Option.CHINESE];
 
 test("习题的题面应是单词的音频，假名注音，假名 + 汉字，中文中的某一项", () => {
   exercises.forEach((exercise) => {

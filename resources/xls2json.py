@@ -20,5 +20,5 @@ for book in range(4):
             data.append(temp)
             row += 1
         with open("Unit" + str(unit) + ".json", "w") as file:
-            file.write(str(data).replace("\'", "\""))
+            file.write(json.dumps(data))
     os.chdir("..")

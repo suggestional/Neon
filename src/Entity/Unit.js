@@ -1,3 +1,5 @@
+import Word from "@/Entity/Word";
+
 class Unit {
     /**
      * @function constructor
@@ -6,6 +8,22 @@ class Unit {
      */
     constructor(words) {
         this.words = words;
+    }
+
+    /**
+     * @function initFromJSON
+     * @description 从 JSON 文件中构造单元
+     * @param {String} path - JSON 文件地址
+     * @return {Unit} JSON 对应的单元
+     */
+    static initFromJSON(path) {
+        let data = require(path);
+        let words = [];
+        data.forEach(function (word) {
+           word.__proto__ = new Word();
+           words.push(word);
+        });
+        return new Unit(words);
     }
 
     /**

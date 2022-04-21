@@ -1,9 +1,3 @@
-/*
-2. 给定一个单词，当生成了对应习题，那么
-  习题的题面应是单词的假名注音，假名 + 汉字，中文中的某一项，
-  选项中应当有且仅有这个单词的假名 + 汉字，假名注音，中文中的一个，其他三个选项与这个单词无关。
-*/
-
 import Word from "@/Entity/Word";
 import Unit from "@/Entity/Unit";
 import Option from "@/Entity/Option";

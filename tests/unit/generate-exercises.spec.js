@@ -10,10 +10,10 @@ import Option from "@/Entity/Option";
 
 describe("生成练习题测试", () => {
   const words = [
-    new Word("日语1", "中文1", "假名1", "例句1"),
-    new Word("日语2", "中文2", "假名2", "例句2"),
-    new Word("日语3", "中文3", "假名3", "例句3"),
-    new Word("日语4", "中文4", "假名4", "例句4")
+    new Word("日语1", "中文1", "假名1", "词性1"),
+    new Word("日语2", "中文2", "假名2", "词性2"),
+    new Word("日语3", "中文3", "假名3", "词性3"),
+    new Word("日语4", "中文4", "假名4", "词性4")
   ];
 
   const unit = new Unit(words);

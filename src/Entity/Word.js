@@ -43,14 +43,14 @@ class Word {
      * @function generateExercise
      * @description 生成本单词对应的练习题
      * @param {Unit} unit - 生成练习题的所属的单元
+     * @param {Number} questionType - 生成练习题的题面类型
      * @return {Exercise} 练习题
      */
-    generateExercise(unit) {
+    generateExercise(unit, questionType) {
         let correctAnswerIndex = Math.floor(Math.random() * 4);
         let words = unit.chooseWordForOptions(this);
         words.splice(correctAnswerIndex, 0, this);
 
-        let questionType = Math.ceil(Math.random() * 3);
         let optionType;
         do {
             optionType = Math.ceil(Math.random() * 3);

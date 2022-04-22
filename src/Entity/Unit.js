@@ -33,10 +33,11 @@ class Unit {
      */
     generateExercises() {
         let exercises = [];
-
         let wordsLen = this.words.length;
+        let questionType = Math.ceil(Math.random() * 3);
+
         for(var i = 0; i < wordsLen; ++i) {
-            exercises.push(this.words[i].generateExercise(this));
+            exercises.push(this.words[i].generateExercise(this, questionType));
         }
 
         // Fisher-Yates shuffle

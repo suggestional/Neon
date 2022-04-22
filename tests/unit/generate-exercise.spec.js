@@ -13,13 +13,9 @@ describe("练习题选项测试", () => {
     const unit = new Unit(words);
 
     test("题面是假名注音，选项应当是假名+汉字，或者中文，且四个选项类型相同", () => {
-        let exercise = words[0].generateExercise(unit);
+        // 设置题面类型为假名注音
+        let exercise = words[0].generateExercise(unit, Option.KANA);
         let optionTypes = [Option.JAPANESE, Option.CHINESE];
-
-        // 保证题面一定是假名注音
-        while(exercise.question.type !== Option.KANA) {
-            exercise = words[0].generateExercise(unit);
-        }
 
         // 测试第一个选项类型是否为假名+汉字，或者中文
         let optionType = exercise.options[0].type;
@@ -32,13 +28,9 @@ describe("练习题选项测试", () => {
     });
 
     test("题面是中文，选项应当是假名+汉字，或者假名注音，且四个选项类型相同", () => {
-        let exercise = words[0].generateExercise(unit);
+        // 设置题面类型为中文
+        let exercise = words[0].generateExercise(unit, Option.CHINESE);
         let optionTypes = [Option.KANA, Option.JAPANESE];
-
-        // 保证题面一定是中文
-        while(exercise.question.type !== Option.CHINESE) {
-            exercise = words[0].generateExercise(unit);
-        }
 
         // 测试第一个选项类型是否为假名+汉字，或者假名注音
         let optionType = exercise.options[0].type;
@@ -51,13 +43,9 @@ describe("练习题选项测试", () => {
     });
 
     test("题面是假名+汉字，选项应当是中文，或者假名注音，且四个选项类型相同", () => {
-        let exercise = words[0].generateExercise(unit);
+        // 设置题面类型为假名+汉字
+        let exercise = words[0].generateExercise(unit, Option.JAPANESE);
         let optionTypes = [Option.KANA, Option.CHINESE];
-
-        // 保证题面一定是假名+汉字
-        while(exercise.question.type !== Option.JAPANESE) {
-            exercise = words[0].generateExercise(unit);
-        }
 
         // 测试第一个选项类型是否为中文，或者假名注音
         let optionType = exercise.options[0].type;

@@ -5,38 +5,87 @@
         <ion-title>今日学习</ion-title>
       </ion-toolbar>
     </ion-header>
-    <ion-item class="word">
-      <ion-label >
-        某某单词xxx
+    <ion-content >
+    <ion-item class="word" >
+      <ion-label>
+        <p>
+         {{wordList.japanese}}
+        </p>
       </ion-label>
     </ion-item>
-    <ion-content class="ion-padding">
+    <ion-content >
 
       <ion-card >
         <ion-card-header>
-          <ion-card-subtitle>xx</ion-card-subtitle>
-          <ion-card-title>xxx</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-         显示单词详细信息 例句等等
+          <p>中文：{{wordList.chinese}}</p>
+          <p>假名：{{wordList.kana}}</p>
+          <p>词性：{{wordList.wordClass}}</p>
         </ion-card-content>
       </ion-card>
       <ion-button class="next" color="primary" @click="next()" expand="block">下一个</ion-button>
       <ion-button class="previous" color="primary" @click="previous()" expand="block">上一个</ion-button>
     </ion-content>
+    </ion-content>
   </div>
 </template>
 
 <script>
+
+
+var wordLists = require('../../resources/Book0/Unit0.json');
+var id = 0;
 export default {
   name: 'learnWord',
-  method:{
+
+mounted() {
+
+  console.log(wordLists[id]);
+  console.log(id);
+
+},
+  methods:{
     next(){
+      id=id+1;
+      if(id>=9){
+        alert("It is the end of the unit")
+      }
+      console.log(wordLists[id]);
+      console.log(id);
+      this.wordList.japanese=wordLists[id].japanese;
+      this.wordList.wordClass=wordLists[id].wordClass;
+      this.wordList.chinese=wordLists[id].chinese;
+      this.wordList.kana=wordLists[id].kana;
+
     },
     previous(){
-     
+      id=id-1;
+      if(id<=0){
+        alert("It is the beginning of the unit")
+      }
+      console.log(wordLists[id]);
+      console.log(id);
+      this.wordList.japanese=wordLists[id].japanese;
+      this.wordList.wordClass=wordLists[id].wordClass;
+      this.wordList.chinese=wordLists[id].chinese;
+      this.wordList.kana=wordLists[id].kana;
+
     },
-  }
+  },
+  data() {
+    return {
+      wordList: {
+        chinese: wordLists[id].chinese,
+        japanese:wordLists[id].japanese,
+        kana:wordLists[id].kana,
+        wordClass:wordLists[id].kana,
+      },
+
+    };
+
+  },
+
 }
 
 

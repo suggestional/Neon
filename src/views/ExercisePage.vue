@@ -8,16 +8,14 @@
     <ion-content fullscreen>
       <ion-item>
         <ion-label>
-          {{ exercises[0].question.text }}
+          {{ exercise.question.text }}
         </ion-label>
       </ion-item>
-
 
       <ion-card
           button
           @click="selectOption(index)"
-          detail
-          v-for="(option, index) in exercises[0].options"
+          v-for="(option, index) in exercise.options"
           :key="index"
       >
         <ion-card-header>
@@ -31,20 +29,45 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCardHeader, IonCardTitle, IonLabel, IonCard, IonItem } from '@ionic/vue';
+import {
+  IonPage,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonLabel,
+  IonCard,
+  IonItem,
+  toastController
+} from '@ionic/vue';
 import Unit from "@/entity/Unit";
+import Queue from "@/lib/Queue";
+
 
 var data = require('../assets/Book0/Unit0.json');
 var unit = Unit.initFromJSON(data);
-var exercises = unit.generateExercises();
+var exercises = new Queue(unit.generateExercises());
 
 export default defineComponent({
   name: "ExercisePage.vue",
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonCardHeader, IonCardTitle, IonLabel, IonCard, IonItem },
+  components: {
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonPage,
+    IonCardHeader,
+    IonCardTitle,
+    IonLabel,
+    IonCard,
+    IonItem
+  },
 
   data() {
     return {
-      exercises: exercises
+      exercise: exercises.items[0]
     };
   },
 
@@ -55,29 +78,49 @@ export default defineComponent({
      * @param {Number} index - 选择的选项下标
      */
     selectOption(index) {
-      return index;
+      if (this.exercise.correctAnswerIndex === index) {
+        this.openToast("恭喜，回答正确！", 500);
+        if (this.correct()) {
+          // todo: reload to another page
+        }
+
+      } else {
+        this.openToast("回答错误，正确答案：" + this.wrong(), 1500);
+      }
+      this.exercise = exercises.items[0];
     },
 
     /**
      * @function wrong
      * @description 目前在队列头部的题目回答错误，把这道题移动到队列末尾
+     * @return {String} 练习题的正确答案
      */
     wrong() {
-
+      let wrongExercise = exercises.dequeue();
+      exercises.enqueue(wrongExercise);
+      return wrongExercise.options[wrongExercise.correctAnswerIndex].text;
     },
 
     /**
      * @function wrong
      * @description 目前在队列头部的题目回答正确，删除这道题
+     * @return {Boolean} 练习题是否全部回答完毕
      */
     correct() {
+      exercises.dequeue();
+      return exercises.isEmpty();
+    },
 
-    }
-
-
-
+    async openToast(msg, duration) {
+      const toast = await toastController
+          .create({
+            message: msg,
+            duration: duration
+          })
+      return toast.present();
+    },
   }
-})
+});
 </script>
 
 <style scoped>

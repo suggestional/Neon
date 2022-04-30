@@ -34,7 +34,7 @@
 <script>
 
 
-var wordLists = require('../../resources/Book0/Unit0.json');
+var wordLists = require('../assets/Book0/Unit0.json');
 var id = 0;
 export default {
   name: 'learnWord',

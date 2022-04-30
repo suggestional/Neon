@@ -6,6 +6,7 @@ import ReviewPage from "../views/ReviewPage.vue";
 import SettingsPage from "../views/SettingsPage.vue";
 import WordbookSelection from "../views/WordbookSelection.vue";
 import LearnWord from "../views/LearnWord.vue";
+import ExercisePage from "@/views/ExercisePage";
 
 const routes = [
   {
@@ -42,6 +43,10 @@ const routes = [
     // TODO: add params for dynamic route matching
     path: "/learn-word",
     component: LearnWord,
+  },
+  {
+    path: "/exercise",
+    component: ExercisePage,
   },
 ];
 

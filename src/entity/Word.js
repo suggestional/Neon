@@ -1,5 +1,5 @@
-import Exercise from "@/Entity/Exercise";
-import Option from "@/Entity/Option";
+import Exercise from "@/entity/Exercise";
+import Option from "@/entity/Option";
 
 class Word {
     /**

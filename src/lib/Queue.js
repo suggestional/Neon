@@ -38,6 +38,16 @@ class Queue {
     }
 
     /**
+     * @function getItems
+     * @description 返回items
+     * @return {Object[]} items
+     */
+    getItems() {
+        return this.items;
+    }
+
+
+    /**
      * @function size
      * @description 求队列长度
      * @return {Number} 队列长度

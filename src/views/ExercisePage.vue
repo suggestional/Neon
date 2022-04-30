@@ -102,7 +102,7 @@ export default defineComponent({
     },
 
     /**
-     * @function wrong
+     * @function correct
      * @description 目前在队列头部的题目回答正确，删除这道题
      * @return {Boolean} 练习题是否全部回答完毕
      */

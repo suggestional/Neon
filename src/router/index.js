@@ -7,6 +7,7 @@ import SettingsPage from "../views/SettingsPage.vue";
 import WordbookSelection from "../views/WordbookSelection.vue";
 import LearnWord from "../views/LearnWord.vue";
 import ExercisePage from "@/views/ExercisePage";
+import SelectUnit from "../views/SelectUnit";
 
 const routes = [
   {
@@ -47,6 +48,10 @@ const routes = [
   {
     path: "/exercise",
     component: ExercisePage,
+  },
+  {
+    path: "/select-unit",
+    component: SelectUnit,
   },
 ];
 

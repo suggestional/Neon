@@ -11,7 +11,7 @@
           :key="index"
       >
         <ion-label>
-          {{ word.kana }}
+          {{ word.japanese }}
         </ion-label>
       </ion-item>
 
@@ -51,7 +51,6 @@ export default defineComponent({
   },
 
   mounted() {
-    console.log(this.$route.query.unitId);
     let data = require('../assets/Book0/Unit' + this.$route.query.unitId + '.json');
     let unit = Unit.initFromJSON(data);
     this.words = unit.words;

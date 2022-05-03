@@ -6,7 +6,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content fullscreen>
-      <ion-card button href="/wordbook-selection">
+      <ion-card button href="/select-wordbook">
         <ion-card-header>
           <ion-card-title>切换词书</ion-card-title>
         </ion-card-header>

@@ -28,14 +28,14 @@
 <script>
 import { defineComponent } from "vue";
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonList,
-  IonItem,
   IonContent,
+  IonHeader,
+  IonItem,
   IonLabel,
+  IonList,
+  IonPage,
+  IonTitle,
+  IonToolbar,
 } from "@ionic/vue";
 
 export default defineComponent({
@@ -74,13 +74,20 @@ export default defineComponent({
           description: "this is a description",
         },
       ],
-      currWordbookId: "0",
     };
+  },
+  computed: {
+    currWordbookId() {
+      return this.$store.state.currWordbookId;
+    },
   },
   methods: {
     buttonClick(wordbookId) {
       // TODO: save preference
-      this.currWordbookId = wordbookId;
+      this.$store.commit("setCurrWordbookId", wordbookId);
+    },
+    back() {
+      this.$router.push("/tabs/learn");
     },
   },
 });

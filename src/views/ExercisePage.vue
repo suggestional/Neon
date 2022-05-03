@@ -44,7 +44,7 @@ import {
 } from '@ionic/vue';
 import Unit from "@/entity/Unit";
 import Queue from "@/lib/Queue";
-
+import router from "@/router";
 
 var data = require('../assets/Book0/Unit0.json');
 var unit = Unit.initFromJSON(data);
@@ -67,7 +67,8 @@ export default defineComponent({
 
   data() {
     return {
-      exercise: exercises.items[0]
+      exercise: exercises.items[0],
+      exercises: exercises
     };
   },
 
@@ -81,8 +82,7 @@ export default defineComponent({
       if (this.exercise.correctAnswerIndex === index) {
         this.openToast("恭喜，回答正确！", 500);
         if (this.correct()) {
-          // todo: reload to another page
-          this.$router.push({path:'/list-words',query: {unitId: 0}});
+          router.push({path:'/list-words',query: {unitId: 0}});
           return;
         }
 

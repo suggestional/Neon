@@ -57,7 +57,6 @@ const routes = [
   {
     path: "/list-words",
     component: ListWordsPage,
-
   }
 ];
 

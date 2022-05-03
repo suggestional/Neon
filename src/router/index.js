@@ -8,6 +8,7 @@ import WordbookSelection from "../views/WordbookSelection.vue";
 import LearnWord from "../views/LearnWord.vue";
 import ExercisePage from "@/views/ExercisePage";
 import SelectUnit from "../views/SelectUnit";
+import ListWordsPage from "@/views/ListWordsPage";
 
 const routes = [
   {
@@ -53,6 +54,11 @@ const routes = [
     path: "/select-unit",
     component: SelectUnit,
   },
+  {
+    path: "/list-words",
+    component: ListWordsPage,
+
+  }
 ];
 
 const router = createRouter({

@@ -82,6 +82,8 @@ export default defineComponent({
         this.openToast("恭喜，回答正确！", 500);
         if (this.correct()) {
           // todo: reload to another page
+          this.$router.push({path:'/list-words',query: {unitId: 0}});
+          return;
         }
 
       } else {

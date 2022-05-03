@@ -62,8 +62,8 @@ class Unit {
         let totalLength = this.words.length;
         while (results.length < 3) {
             let chosen = this.words[Math.floor(Math.random() * totalLength)];
-            if (!chosen.equals(word))
-                results.push(chosen)
+            if (!chosen.equals(word) && results.indexOf(chosen) === -1)
+                results.push(chosen);
         }
         return results;
     }

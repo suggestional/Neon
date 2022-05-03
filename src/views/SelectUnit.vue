@@ -74,16 +74,19 @@ export default defineComponent({
 
         },
       ],
-      currWordbookId: "0",
+      currentId: "0",
     };
   },
   methods: {
     select(unitId) {
-      this.currWordbookId = unitId;
+      this.currentId = unitId;
+       //var data = require('../assets/Book0/Unit' + unitId + '.json')
+      //alert('../assets/Book0/Unit' + unitId + '.json')
+      console.log(unitId)
       this.$router.push({
         path: '/learn-word',
         query:{
-          unitId,
+          unitId:unitId
         }
       })
     },

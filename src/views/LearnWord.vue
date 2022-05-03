@@ -47,14 +47,12 @@ import Unit from "@/entity/Unit";
 
 //var wordLists = require('../assets/Book0/Unit0.json');
 //var wordLists = require('../assets/Book0/Unit1.json');
-var data = require('../assets/Book0/Unit0.json');
-var unit = Unit.initFromJSON(data);
-console.log(unit);
-var wordLists = unit.words;
-console.log(wordLists);
-
 var id = 0;
 
+var data = require('../assets/Book0/Unit0.json');
+var unit = Unit.initFromJSON(data);
+var wordLists = unit.words;
+console.log(wordLists[id]);
 
 export default {
   name: 'learnWord',
@@ -73,12 +71,19 @@ export default {
 mounted() {
   console.log(wordLists[id]);
   console.log(id);
-
 },
   created: function() {
     //unitId
+    //this.unitId = this.$route.query.unitId;
+   // console.log("Unit"+ this.unitId)
     this.unitId = this.$route.query.unitId;
-    console.log("Unit"+ this.unitId)
+    console.log("Unit"+ this.unitId);
+/*
+    let data = require('../assets/Book0/Unit'+this.unitId+'.json');
+    let unit = Unit.initFromJSON(data);
+    this.wordLists= unit.words;
+    */
+
 
   },
   methods:{
@@ -87,12 +92,13 @@ mounted() {
       if(id>=0){
         this.head=true;
       }
-      if(id==8){
+      if(id===8){
         this.hide=false;
         this.hidden=true;
+        this.openToast("It is the end of the unit",1000)
       }
       if(id>=9){
-        this.openToast("It is the end of the unit",500)
+        //this.openToast("It is the end of the unit",500)
 
         id=9
         this.$router.push("/exercise")
@@ -116,7 +122,7 @@ mounted() {
         this.hidden=false;
         this.hide =true;
       }
-      if(id==1){
+      if(id===1){
         this.head=true;
       }
       console.log(wordLists[id]);
@@ -142,12 +148,17 @@ mounted() {
       hide:true,
       hidden:false,
       head:false,
+
       wordList: {
         chinese: wordLists[id].chinese,
         japanese:wordLists[id].japanese,
         kana:wordLists[id].kana,
         wordClass:wordLists[id].kana,
-      },
+
+
+      }
+
+
 
     };
 

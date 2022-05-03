@@ -2,6 +2,9 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button @click="back()"> 返回 </ion-button>
+        </ion-buttons>
         <ion-title>选择词书</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -36,6 +39,8 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonButton,
+  IonButtons,
 } from "@ionic/vue";
 
 export default defineComponent({
@@ -49,6 +54,8 @@ export default defineComponent({
     IonLabel,
     IonContent,
     IonPage,
+    IonButton,
+    IonButtons,
   },
   data() {
     return {

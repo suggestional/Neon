@@ -7,25 +7,22 @@
     </ion-header>
     <ion-content >
     <ion-item class="word" >
-      <ion-label>
-        <p>
-         {{wordList.japanese}}
-        </p>
+      <ion-label  style="text-align:center">
+      <ion-title>
+        {{ word.japanese }}</ion-title>
       </ion-label>
     </ion-item>
     <ion-content >
-
       <ion-card >
-        <ion-card-header>
-        </ion-card-header>
-        <ion-card-content>
-          <p>中文：{{wordList.chinese}}</p>
-          <p>假名：{{wordList.kana}}</p>
-          <p>词性：{{wordList.wordClass}}</p>
+        <ion-card-content  style="text-align:center">
+          <ion-title>中文：{{ word.chinese }}</ion-title>
+          <ion-title>假名：{{ word.kana }}</ion-title>
+          <ion-title>词性：{{ word.wordClass }}</ion-title>
         </ion-card-content>
       </ion-card>
-      <ion-button class="next" color="primary" @click="next()" expand="block">下一个</ion-button>
-      <ion-button class="previous" color="primary" @click="previous()" expand="block">上一个</ion-button>
+      <ion-button class="next" color="primary" @click="next()" expand="block" v-if="hide">下一个</ion-button>
+      <ion-button class="next" color="primary" @click="next()" expand="block" v-if="hidden">开始练习</ion-button>
+      <ion-button class="previous" color="primary" @click="previous()" expand="block" v-if="head" >上一个</ion-button>
     </ion-content>
     </ion-content>
   </div>
@@ -34,67 +31,101 @@
 <script>
 
 
-var wordLists = require('../../resources/Book0/Unit0.json');
+import {
+  IonCard,
+  IonCardContent,
+  IonHeader,
+  IonItem,
+  IonContent,
+  IonLabel,
+  IonTitle,
+  IonToolbar,
+  IonButton, toastController,
+
+} from "@ionic/vue";
+import Unit from "@/entity/Unit";
+import router from "@/router";
+
 var id = 0;
+
 export default {
   name: 'learnWord',
+  components: {
+    IonCard,
+    IonCardContent,
+    IonHeader,
+    IonItem,
+    IonContent,
+    IonLabel,
+    IonTitle,
+    IonToolbar,
+    IonButton,
+  },
 
-mounted() {
-
-  console.log(wordLists[id]);
-  console.log(id);
-
-},
   methods:{
     next(){
-      id=id+1;
-      if(id>=9){
-        alert("It is the end of the unit")
+      id = id + 1;
+      if(id >= 0){
+        this.head = true;
       }
-      console.log(wordLists[id]);
-      console.log(id);
-      this.wordList.japanese=wordLists[id].japanese;
-      this.wordList.wordClass=wordLists[id].wordClass;
-      this.wordList.chinese=wordLists[id].chinese;
-      this.wordList.kana=wordLists[id].kana;
-
+      if(id === 8){
+        this.hide = false;
+        this.hidden = true;
+        this.openToast("It is the end of the unit",1000);
+      }
+      if(id >= 9){
+        id = 9;
+        router.push({path:'/exercise',query: {unitId: this.unitId}});
+        return;
+      }
+      this.word = this.words[id];
     },
-    previous(){
-      id=id-1;
-      if(id<=0){
-        alert("It is the beginning of the unit")
-      }
-      console.log(wordLists[id]);
-      console.log(id);
-      this.wordList.japanese=wordLists[id].japanese;
-      this.wordList.wordClass=wordLists[id].wordClass;
-      this.wordList.chinese=wordLists[id].chinese;
-      this.wordList.kana=wordLists[id].kana;
 
+    previous(){
+      id = id - 1;
+      if(id <= 0){
+        this.openToast("It is the beginning of the unit",500);
+        this.head = false;
+        id = 0;
+      }
+      if(id <= 9){
+        this.hidden = false;
+        this.hide = true;
+      }
+      if(id === 1){
+        this.head=true;
+      }
+      this.word = this.words[id];
+    },
+
+    async openToast(msg, duration) {
+      const toast = await toastController
+          .create({
+            message: msg,
+            duration: duration
+          })
+      return toast.present();
     },
   },
   data() {
+    var data = require('../assets/Book0/Unit'+ this.$route.query.unitId + '.json');
+    var unit = Unit.initFromJSON(data);
+    var words = unit.words;
     return {
-      wordList: {
-        chinese: wordLists[id].chinese,
-        japanese:wordLists[id].japanese,
-        kana:wordLists[id].kana,
-        wordClass:wordLists[id].kana,
-      },
-
+      hide:true,
+      hidden:false,
+      head:false,
+      words: words,
+      word: words[id],
+      unitId: this.$route.query.unitId
     };
-
   },
-
 }
 
 
 </script>
 <style>
-.word{
-  width: 200px;
-  margin-left: 500px;
-}
+
 .next{
   width:100px;
   float: right;

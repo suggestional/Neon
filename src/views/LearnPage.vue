@@ -12,7 +12,7 @@
         </ion-card-header>
       </ion-card>
       <!-- TODO: link to units & actual words -->
-      <ion-card button href="/learn-word">
+      <ion-card button href="/select-unit">
         <ion-card-header>
           <ion-card-title>开始学习</ion-card-title>
         </ion-card-header>

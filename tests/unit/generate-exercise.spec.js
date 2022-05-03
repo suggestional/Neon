@@ -1,6 +1,6 @@
-import Word from "@/Entity/Word";
-import Unit from "@/Entity/Unit";
-import Option from "@/Entity/Option";
+import Word from "@/entity/Word";
+import Unit from "@/entity/Unit";
+import Option from "@/entity/Option";
 
 describe("练习题选项测试", () => {
     const words = [

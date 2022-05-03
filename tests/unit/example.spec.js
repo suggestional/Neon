@@ -1,5 +1,4 @@
-import { mount } from '@vue/test-utils'
-import Tab1Page from '@/views/LearnPage.vue'
+import Unit from "@/entity/Unit";
 
 //import Tab1Page from '../../src/views/LearnPage.vue'
 
@@ -7,8 +6,9 @@ import Tab1Page from '@/views/LearnPage.vue'
 
 
 describe('Tab1Page.vue', () => {
-  it('renders tab 1 Tab1Page', () => {
-    const wrapper = mount(Tab1Page)
-    expect(wrapper.text()).toMatch('学习切换词书开始学习开始复习')
-  })
+  test("题面是假名+汉字，选项应当是中文，或者假名注音，且四个选项类型相同", () => {
+    // 设置题面类型为假名+汉字
+    console.log(Unit.initFromJSON('../assets/Book0/Unit0.json'));
+  });
+
 })

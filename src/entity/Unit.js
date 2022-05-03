@@ -1,4 +1,4 @@
-import Word from "@/Entity/Word";
+import Word from "@/entity/Word";
 
 class Unit {
     /**
@@ -13,11 +13,10 @@ class Unit {
     /**
      * @function initFromJSON
      * @description 从 JSON 文件中构造单元
-     * @param {String} path - JSON 文件地址
+     * @param {JSON} data - require 得到的 JSON 内容
      * @return {Unit} JSON 对应的单元
      */
-    static initFromJSON(path) {
-        let data = require(path);
+    static initFromJSON(data) {
         let words = [];
         data.forEach(function (word) {
            word.__proto__ = new Word();
@@ -63,8 +62,8 @@ class Unit {
         let totalLength = this.words.length;
         while (results.length < 3) {
             let chosen = this.words[Math.floor(Math.random() * totalLength)];
-            if (!chosen.equals(word))
-                results.push(chosen)
+            if (!chosen.equals(word) && results.indexOf(chosen) === -1)
+                results.push(chosen);
         }
         return results;
     }

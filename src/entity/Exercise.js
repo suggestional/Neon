@@ -11,7 +11,7 @@ class Exercise {
         this.word = word;
         this.question = question;
         this.options = options;
-        this.correctAnserIndex = correctAnswerIndex;
+        this.correctAnswerIndex = correctAnswerIndex;
     }
 }
 

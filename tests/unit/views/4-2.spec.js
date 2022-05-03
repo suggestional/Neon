@@ -4,9 +4,9 @@
   选项中应当有且仅有这个单词的假名 + 汉字，假名注音，中文中的一个，其他三个选项与这个单词无关。
 */
 
-import Word from "@/Entity/Word";
-import Unit from "@/Entity/Unit";
-import Option from "@/Entity/Option";
+import Word from "@/entity/Word";
+import Unit from "@/entity/Unit";
+import Option from "@/entity/Option";
 
 // todo: more test cases
 // const words = [

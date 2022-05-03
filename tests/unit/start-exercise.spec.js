@@ -1,4 +1,4 @@
-import {mount} from "@vue/test-utils";
+import {shallowMount} from "@vue/test-utils";
 import ExercisePage from "@/views/ExercisePage";
 import router from "@/router";
 
@@ -14,10 +14,8 @@ import router from "@/router";
  */
 
 describe("进行练习测试", () => {
-  jest.mock("@/router", ()=> ({router: jest.fn()}));
-
   test("选用户选择了这道习题的正确选项，那么当前习题应当指向下一题，这道题从题库中删除", () => {
-    const wrapper = mount(ExercisePage);
+    const wrapper = shallowMount(ExercisePage);
     let exercises = wrapper.componentVM.exercises;
     let curExercise = wrapper.componentVM.exercise;
     let nextExercise = exercises.items[1];
@@ -32,7 +30,7 @@ describe("进行练习测试", () => {
   });
 
   test("用户选择了这道习题的错误选项，那么当前习题应当指向下一题，这道题被移动到题库的最尾端", () => {
-    const wrapper = mount(ExercisePage);
+    const wrapper = shallowMount(ExercisePage);
     let exercises = wrapper.componentVM.exercises;
     let curExercise = wrapper.componentVM.exercise;
     let nextExercise = exercises.items[1];
@@ -47,11 +45,13 @@ describe("进行练习测试", () => {
   });
 
   test("习题组长度为 0，那么显示单元练习结算列表", () => {
-    const wrapper = mount(ExercisePage);
+    const wrapper = shallowMount(ExercisePage);
+    const pushSpy = jest.spyOn(router, "push"); // 监听 push
+
     let curExercise;
     var correctAnswerIndex;
 
-
+    // 前九题
     for(var i = 0; i < 9; ++i) {
       curExercise = wrapper.componentVM.exercise;
       correctAnswerIndex = curExercise.correctAnswerIndex;
@@ -64,8 +64,7 @@ describe("进行练习测试", () => {
     correctAnswerIndex = curExercise.correctAnswerIndex;
     wrapper.componentVM.selectOption(correctAnswerIndex); // 回答正确
     expect(wrapper.componentVM.exercises.size()).toBe(0); // 做对 i + 1 道题，剩下的题目数量为 10 - (i + 1)
-
-    expect(router.push).toHaveBeenCalledWith('/list-words');
+    expect(pushSpy).toHaveBeenCalledWith({"path": "/list-words", "query": {"unitId": 0}}); // 跳转到结算页面
   });
 
 });

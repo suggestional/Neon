@@ -46,7 +46,6 @@ import Unit from "@/entity/Unit";
 import Queue from "@/lib/Queue";
 import router from "@/router";
 
-
 export default defineComponent({
   name: "ExercisePage.vue",
   components: {
@@ -63,13 +62,14 @@ export default defineComponent({
   },
 
   data() {
-    var data = require('../assets/Book0/Unit' + this.$route.query.unitId + '.json');
+    var unitId = this.$route ? this.$route.query.unitId : 0;
+    var data = require('../assets/Book0/Unit' + unitId + '.json');
     var unit = Unit.initFromJSON(data);
     var exercises = new Queue(unit.generateExercises());
     return {
       exercises: exercises,
       exercise: exercises.items[0],
-      unitId: this.$route.query.unitId
+      unitId: unitId
     };
   },
 

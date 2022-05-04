@@ -16,12 +16,16 @@
           detail
           v-for="wordbook in wordbooks"
           :key="wordbook.id"
+          :color="isCurrWordbook(wordbook.id) ? 'primary' : 'undefined'"
         >
           <ion-label>
             <!-- TODO: more info -->
             <h2>{{ wordbook.name }}</h2>
             <p>{{ wordbook.description }}</p>
           </ion-label>
+          <ion-badge v-if="isCurrWordbook(wordbook.id)" color="secondary"
+            >当前词书</ion-badge
+          >
         </ion-item>
       </ion-list>
     </ion-content>
@@ -41,6 +45,7 @@ import {
   IonToolbar,
   IonButton,
   IonButtons,
+  toastController,
 } from "@ionic/vue";
 import store from "@/store";
 
@@ -90,12 +95,19 @@ export default defineComponent({
     },
   },
   methods: {
-    buttonClick(wordbookId) {
-      // TODO: save preference
+    async buttonClick(wordbookId) {
       store.commit("setCurrWordbookId", wordbookId);
+      const toast = await toastController.create({
+        message: "已保存您的设置。",
+        duration: 2000,
+      });
+      return toast.present();
     },
     back() {
       this.$router.push("/tabs/learn");
+    },
+    isCurrWordbook(wordbookId) {
+      return wordbookId === this.currWordbookId;
     },
   },
 });

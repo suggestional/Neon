@@ -42,6 +42,7 @@ import {
   IonButton,
   IonButtons,
 } from "@ionic/vue";
+import store from "@/store";
 
 export default defineComponent({
   name: "WordbookSelection",
@@ -91,7 +92,7 @@ export default defineComponent({
   methods: {
     buttonClick(wordbookId) {
       // TODO: save preference
-      this.$store.commit("setCurrWordbookId", wordbookId);
+      store.commit("setCurrWordbookId", wordbookId);
     },
     back() {
       this.$router.push("/tabs/learn");

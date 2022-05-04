@@ -44,11 +44,7 @@ import {
 } from '@ionic/vue';
 import Unit from "@/entity/Unit";
 import Queue from "@/lib/Queue";
-
-
-var data = require('../assets/Book0/Unit0.json');
-var unit = Unit.initFromJSON(data);
-var exercises = new Queue(unit.generateExercises());
+import router from "@/router";
 
 export default defineComponent({
   name: "ExercisePage.vue",
@@ -66,8 +62,14 @@ export default defineComponent({
   },
 
   data() {
+    var unitId = this.$route ? this.$route.query.unitId : 0;
+    var data = require('../assets/Book0/Unit' + unitId + '.json');
+    var unit = Unit.initFromJSON(data);
+    var exercises = new Queue(unit.generateExercises());
     return {
-      exercise: exercises.items[0]
+      exercises: exercises,
+      exercise: exercises.items[0],
+      unitId: unitId
     };
   },
 
@@ -81,15 +83,14 @@ export default defineComponent({
       if (this.exercise.correctAnswerIndex === index) {
         this.openToast("恭喜，回答正确！", 500);
         if (this.correct()) {
-          // todo: reload to another page
-          this.$router.push({path:'/list-words',query: {unitId: 0}});
+          router.push({path:'/list-words',query: {unitId: this.unitId}});
           return;
         }
 
       } else {
         this.openToast("回答错误，正确答案：" + this.wrong(), 1500);
       }
-      this.exercise = exercises.items[0];
+      this.exercise = this.exercises.items[0];
     },
 
     /**
@@ -98,8 +99,8 @@ export default defineComponent({
      * @return {String} 练习题的正确答案
      */
     wrong() {
-      let wrongExercise = exercises.dequeue();
-      exercises.enqueue(wrongExercise);
+      let wrongExercise = this.exercises.dequeue();
+      this.exercises.enqueue(wrongExercise);
       return wrongExercise.options[wrongExercise.correctAnswerIndex].text;
     },
 
@@ -109,8 +110,8 @@ export default defineComponent({
      * @return {Boolean} 练习题是否全部回答完毕
      */
     correct() {
-      exercises.dequeue();
-      return exercises.isEmpty();
+      this.exercises.dequeue();
+      return this.exercises.isEmpty();
     },
 
     async openToast(msg, duration) {

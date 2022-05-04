@@ -33,6 +33,7 @@ import {
   IonContent,
   IonLabel,
 } from "@ionic/vue";
+import router from "@/router";
 
 export default defineComponent({
   name: "SelectUnit",
@@ -74,18 +75,13 @@ export default defineComponent({
 
         },
       ],
-      currWordbookId: "0",
+      currentId: "0",
     };
   },
   methods: {
     select(unitId) {
-      this.currWordbookId = unitId;
-      this.$router.push({
-        path: '/learn-word',
-        query:{
-          unitId,
-        }
-      })
+      this.currentId = unitId;
+      router.push({path: '/learn-word', query:{unitId: unitId}});
     },
   },
 });

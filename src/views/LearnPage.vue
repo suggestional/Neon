@@ -6,27 +6,21 @@
       </ion-toolbar>
     </ion-header>
     <ion-content fullscreen>
-      <ion-card button href="/select-wordbook">
-        <ion-card-header>
-          <ion-card-title>切换词书</ion-card-title>
-        </ion-card-header>
-      </ion-card>
-      <!-- TODO: link to units & actual words -->
-      <ion-card button href="/select-unit">
-        <ion-card-header>
-          <ion-card-title>开始学习</ion-card-title>
-        </ion-card-header>
-      </ion-card>
-      <ion-card button href="/tabs/review">
-        <ion-card-header>
-          <ion-card-title>开始复习</ion-card-title>
-        </ion-card-header>
-      </ion-card>
+      <ion-list>
+        <ion-item button detail @click="this.$router.push('/select-wordbook')">
+          <ion-label>
+            <h2>切换词书</h2>
+          </ion-label>
+        </ion-item>
+        <ion-item button detail @click="this.$router.push('/select-unit')">
+          <ion-label>
+            <h2>开始学习</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
     </ion-content>
   </ion-page>
 </template>
-
-
 
 <script>
 import { defineComponent } from "vue";
@@ -35,9 +29,6 @@ import {
   IonHeader,
   IonToolbar,
   IonContent,
-  IonCard,
-  IonCardHeader,
-  IonCardTitle,
   IonTitle,
 } from "@ionic/vue";
 
@@ -48,9 +39,6 @@ export default defineComponent({
     IonToolbar,
     IonTitle,
     IonContent,
-    IonCard,
-    IonCardHeader,
-    IonCardTitle,
     IonPage,
   },
 });

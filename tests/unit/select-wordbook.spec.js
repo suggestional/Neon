@@ -20,7 +20,7 @@ describe("切换词书测试", () => {
 
     test("给定一位用户，当用户选择了一本词书，那么保存用户的词书选择。", () => {
         const wrapper = shallowMount(SelectWordbook);
-        wrapper.componentVM.buttonClick(3);
+        wrapper.componentVM.buttonClick(3); // 选择下标为 3 的词书
         expect(store.state.currWordbookId).toBe("3");
     });
 

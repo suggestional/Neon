@@ -30,6 +30,9 @@ import {
   IonToolbar,
   IonContent,
   IonTitle,
+  IonLabel,
+  IonItem,
+  IonList,
 } from "@ionic/vue";
 
 export default defineComponent({
@@ -40,6 +43,9 @@ export default defineComponent({
     IonTitle,
     IonContent,
     IonPage,
+    IonLabel,
+    IonItem,
+    IonList,
   },
 });
 </script>

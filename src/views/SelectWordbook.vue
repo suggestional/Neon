@@ -45,6 +45,7 @@ import {
   IonToolbar,
   IonButton,
   IonButtons,
+  IonBadge,
   toastController,
 } from "@ionic/vue";
 import store from "@/store";
@@ -62,6 +63,7 @@ export default defineComponent({
     IonPage,
     IonButton,
     IonButtons,
+    IonBadge,
   },
   data() {
     return {

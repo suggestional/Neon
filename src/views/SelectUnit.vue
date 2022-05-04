@@ -37,6 +37,8 @@ import {
   IonItem,
   IonContent,
   IonLabel,
+  IonButton,
+  IonButtons,
 } from "@ionic/vue";
 import router from "@/router";
 
@@ -51,6 +53,8 @@ export default defineComponent({
     IonLabel,
     IonContent,
     IonPage,
+    IonButton,
+    IonButtons,
   },
   data() {
     return {

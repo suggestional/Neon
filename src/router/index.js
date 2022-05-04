@@ -4,7 +4,7 @@ import TabsPage from "../views/TabsPage.vue";
 import LearnPage from "../views/LearnPage.vue";
 import ReviewPage from "../views/ReviewPage.vue";
 import SettingsPage from "../views/SettingsPage.vue";
-import WordbookSelection from "../views/WordbookSelection.vue";
+import SelectWordbook from "../views/SelectWordbook.vue";
 import LearnWord from "../views/LearnWord.vue";
 import ExercisePage from "@/views/ExercisePage";
 import SelectUnit from "../views/SelectUnit";
@@ -38,8 +38,8 @@ const routes = [
     ],
   },
   {
-    path: "/wordbook-selection",
-    component: WordbookSelection,
+    path: "/select-wordbook",
+    component: SelectWordbook,
   },
   {
     // TODO: add params for dynamic route matching
@@ -57,7 +57,7 @@ const routes = [
   {
     path: "/list-words",
     component: ListWordsPage,
-  }
+  },
 ];
 
 const router = createRouter({

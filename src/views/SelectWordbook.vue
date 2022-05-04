@@ -2,6 +2,9 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button @click="back()"> 返回 </ion-button>
+        </ion-buttons>
         <ion-title>选择词书</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -28,14 +31,16 @@
 <script>
 import { defineComponent } from "vue";
 import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonList,
-  IonItem,
   IonContent,
+  IonHeader,
+  IonItem,
   IonLabel,
+  IonList,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonButton,
+  IonButtons,
 } from "@ionic/vue";
 
 export default defineComponent({
@@ -49,6 +54,8 @@ export default defineComponent({
     IonLabel,
     IonContent,
     IonPage,
+    IonButton,
+    IonButtons,
   },
   data() {
     return {
@@ -74,13 +81,20 @@ export default defineComponent({
           description: "this is a description",
         },
       ],
-      currWordbookId: "0",
     };
+  },
+  computed: {
+    currWordbookId() {
+      return this.$store.state.currWordbookId;
+    },
   },
   methods: {
     buttonClick(wordbookId) {
       // TODO: save preference
-      this.currWordbookId = wordbookId;
+      this.$store.commit("setCurrWordbookId", wordbookId);
+    },
+    back() {
+      this.$router.push("/tabs/learn");
     },
   },
 });

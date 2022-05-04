@@ -51,7 +51,7 @@ export default defineComponent({
   },
 
   mounted() {
-    let data = require('../assets/Book0/Unit' + this.$route.query.unitId + '.json');
+    let data = require('../assets/Book' + this.$store.state.currWordbookId + '/Unit' + this.$route.query.unitId + '.json');
     let unit = Unit.initFromJSON(data);
     this.words = unit.words;
   },

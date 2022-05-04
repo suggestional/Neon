@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
-// import { RouteRecordRaw } from 'vue-router';
 import TabsPage from "../views/TabsPage.vue";
 import LearnPage from "../views/LearnPage.vue";
 import ReviewPage from "../views/ReviewPage.vue";

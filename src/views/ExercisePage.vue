@@ -63,7 +63,8 @@ export default defineComponent({
 
   data() {
     var unitId = this.$route ? this.$route.query.unitId : 0;
-    var data = require('../assets/Book0/Unit' + unitId + '.json');
+    var bookId = this.$store ? this.$store.state.currWordbookId : 0;
+    var data = require('../assets/Book' + bookId + '/Unit' + unitId + '.json');
     var unit = Unit.initFromJSON(data);
     var exercises = new Queue(unit.generateExercises());
     return {

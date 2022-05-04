@@ -108,7 +108,7 @@ export default {
     },
   },
   data() {
-    var data = require('../assets/Book0/Unit'+ this.$route.query.unitId + '.json');
+    var data = require('../assets/Book' + this.$store.state.currWordbookId + '/Unit'+ this.$route.query.unitId + '.json');
     var unit = Unit.initFromJSON(data);
     var words = unit.words;
     return {
@@ -117,7 +117,7 @@ export default {
       head:false,
       words: words,
       word: words[id],
-      unitId: this.$route.query.unitId
+      unitId: this.$route.query.unitId,
     };
   },
 }

@@ -16,7 +16,6 @@
           detail
           v-for="wordbook in wordbooks"
           :key="wordbook.id"
-          :color="isCurrWordbook(wordbook.id) ? 'primary' : 'undefined'"
         >
           <ion-label>
             <!-- TODO: more info -->

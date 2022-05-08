@@ -36,7 +36,7 @@ class Unit {
         let questionType = Math.ceil(Math.random() * 3);
 
         for(var i = 0; i < wordsLen; ++i) {
-            exercises.push(this.words[i].generateExercise(this, questionType));
+            exercises.push(this.words[i].generateExercise(i, this, questionType));
         }
 
         // Fisher-Yates shuffle

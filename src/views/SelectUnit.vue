@@ -2,16 +2,21 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button @click="back()"> 返回 </ion-button>
+        </ion-buttons>
         <ion-title>选择单元</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item button
-            @click="select(unit.id)"
-            detail
-            v-for="unit in units"
-            :key="unit.id">
+        <ion-item
+          button
+          @click="select(unit.id)"
+          detail
+          v-for="unit in units"
+          :key="unit.id"
+        >
           <ion-label>
             <h2>{{ unit.name }}</h2>
           </ion-label>
@@ -22,18 +27,11 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonList,
-  IonItem,
-  IonContent,
-  IonLabel,
-} from "@ionic/vue";
+import {defineComponent} from "vue";
+import {IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar, IonButton, IonButtons,} from "@ionic/vue";
 import router from "@/router";
+import store from "@/store";
+import Unit from "@/entity/Unit";
 
 export default defineComponent({
   name: "SelectUnit",
@@ -46,6 +44,8 @@ export default defineComponent({
     IonLabel,
     IonContent,
     IonPage,
+    IonButton,
+    IonButtons,
   },
   data() {
     return {
@@ -57,22 +57,18 @@ export default defineComponent({
         {
           id: "1",
           name: "Unit 1",
-
         },
         {
           id: "2",
           name: "Unit 2",
-
         },
         {
           id: "3",
           name: "Unit 3",
-
         },
         {
           id: "4",
           name: "Unit 4",
-
         },
       ],
       currentId: "0",
@@ -81,7 +77,10 @@ export default defineComponent({
   methods: {
     select(unitId) {
       this.currentId = unitId;
-      router.push({path: '/learn-word', query:{unitId: unitId}});
+      var bookId = store.state.currWordbookId;
+      var data = require('../assets/Book' + bookId + '/Unit' + unitId + '.json');
+      store.state.currUnit = Unit.initFromJSON(data);
+      router.push({path: '/learn-word', replace: true});
     },
   },
 });

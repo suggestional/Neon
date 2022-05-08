@@ -22,6 +22,9 @@
             <h2>{{ wordbook.name }}</h2>
             <p>{{ wordbook.description }}</p>
           </ion-label>
+          <ion-badge v-if="isCurrWordbook(wordbook.id)" color="secondary"
+            >当前词书</ion-badge
+          >
         </ion-item>
       </ion-list>
     </ion-content>
@@ -41,8 +44,11 @@ import {
   IonToolbar,
   IonButton,
   IonButtons,
+  IonBadge,
+  toastController,
 } from "@ionic/vue";
 import store from "@/store";
+import router from "@/router";
 
 export default defineComponent({
   name: "WordbookSelection",
@@ -57,6 +63,7 @@ export default defineComponent({
     IonPage,
     IonButton,
     IonButtons,
+    IonBadge,
   },
   data() {
     return {
@@ -86,16 +93,23 @@ export default defineComponent({
   },
   computed: {
     currWordbookId() {
-      return this.$store.state.currWordbookId;
+      return store.state.currWordbookId;
     },
   },
   methods: {
-    buttonClick(wordbookId) {
-      // TODO: save preference
+    async buttonClick(wordbookId) {
       store.commit("setCurrWordbookId", wordbookId);
+      const toast = await toastController.create({
+        message: "已保存您的设置。",
+        duration: 2000,
+      });
+      return toast.present();
     },
     back() {
-      this.$router.push("/tabs/learn");
+      router.push("/tabs/learn");
+    },
+    isCurrWordbook(wordbookId) {
+      return wordbookId === this.currWordbookId;
     },
   },
 });

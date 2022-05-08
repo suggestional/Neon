@@ -13,38 +13,36 @@
       </ion-item>
 
       <ion-card
-          button
-          @click="selectOption(index)"
-          v-for="(option, index) in exercise.options"
-          :key="index"
+        button
+        @click="selectOption(index)"
+        v-for="(option, index) in exercise.options"
+        :key="index"
       >
-        <ion-card-header>
-          <ion-card-title>{{ option.text }}</ion-card-title>
-        </ion-card-header>
+        <ion-card-content>
+          <p>{{ option.text }}</p>
+        </ion-card-content>
       </ion-card>
-
     </ion-content>
   </ion-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent } from "vue";
 import {
   IonPage,
   IonHeader,
   IonToolbar,
   IonTitle,
   IonContent,
-  IonCardHeader,
-  IonCardTitle,
   IonLabel,
   IonCard,
   IonItem,
-  toastController
-} from '@ionic/vue';
-import Unit from "@/entity/Unit";
+  IonCardContent,
+  toastController,
+} from "@ionic/vue";
 import Queue from "@/lib/Queue";
 import router from "@/router";
+import store from "@/store";
 
 export default defineComponent({
   name: "ExercisePage.vue",
@@ -54,23 +52,18 @@ export default defineComponent({
     IonTitle,
     IonContent,
     IonPage,
-    IonCardHeader,
-    IonCardTitle,
     IonLabel,
     IonCard,
-    IonItem
+    IonItem,
+    IonCardContent,
   },
 
   data() {
-    var unitId = this.$route ? this.$route.query.unitId : 0;
-    var bookId = this.$store ? this.$store.state.currWordbookId : 0;
-    var data = require('../assets/Book' + bookId + '/Unit' + unitId + '.json');
-    var unit = Unit.initFromJSON(data);
+    var unit = store.state.currUnit;
     var exercises = new Queue(unit.generateExercises());
     return {
       exercises: exercises,
       exercise: exercises.items[0],
-      unitId: unitId
     };
   },
 
@@ -84,10 +77,9 @@ export default defineComponent({
       if (this.exercise.correctAnswerIndex === index) {
         this.openToast("恭喜，回答正确！", 500);
         if (this.correct()) {
-          router.push({path:'/list-words',query: {unitId: this.unitId}});
+          router.push({path:'/list-words', replace: true});
           return;
         }
-
       } else {
         this.openToast("回答错误，正确答案：" + this.wrong(), 1500);
       }
@@ -116,17 +108,15 @@ export default defineComponent({
     },
 
     async openToast(msg, duration) {
-      const toast = await toastController
-          .create({
-            message: msg,
-            duration: duration
-          })
+      const toast = await toastController.create({
+        message: msg,
+        duration: duration,
+      });
       return toast.present();
     },
-  }
+  },
 });
 </script>
 
 <style scoped>
-
 </style>

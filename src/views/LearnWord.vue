@@ -24,24 +24,24 @@
           color="primary"
           @click="next()"
           expand="block"
-          v-if="hide"
-          >下一个</ion-button
+          v-if="id <= 8"
+        >下一个</ion-button
         >
         <ion-button
           class="next"
           color="primary"
           @click="next()"
           expand="block"
-          v-if="hidden"
-          >开始练习</ion-button
+          v-if="id >= 9"
+        >开始练习</ion-button
         >
         <ion-button
           class="previous"
           color="primary"
           @click="previous()"
           expand="block"
-          v-if="head"
-          >上一个</ion-button
+          v-if="id >= 1"
+        >上一个</ion-button
         >
       </ion-content>
     </ion-content>
@@ -84,38 +84,28 @@ export default {
 
   methods: {
     next() {
+      console.log(id);
       id = id + 1;
-      if (id >= 0) {
-        this.head = true;
-      }
-      if (id === 8) {
-        this.hide = false;
-        this.hidden = true;
+      if (id === 9) {
         this.openToast("It is the end of the unit", 1000);
       }
-      if (id >= 9) {
-        id = 9;
-        router.push({path:'/exercise'});
-        return;
+      if (id >= 10) {
+        id = 0
+        this.id = id;
+        router.push({path:'/exercise', replace: true});
       }
       this.word = this.words[id];
+      this.id = id;
     },
 
     previous() {
       id = id - 1;
       if (id <= 0) {
         this.openToast("It is the beginning of the unit", 500);
-        this.head = false;
         id = 0;
       }
-      if (id <= 9) {
-        this.hidden = false;
-        this.hide = true;
-      }
-      if (id === 1) {
-        this.head = true;
-      }
       this.word = this.words[id];
+      this.id = id;
     },
 
     async openToast(msg, duration) {
@@ -127,12 +117,11 @@ export default {
     },
   },
   data() {
-    var unit = store.state.currUnit
+    var unit = store.state.currUnit;
     var words = unit.words;
+    id = 0;
     return {
-      hide: true,
-      hidden: false,
-      head: false,
+      id: id,
       words: words,
       word: words[id],
     };

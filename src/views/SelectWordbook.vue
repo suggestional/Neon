@@ -48,6 +48,7 @@ import {
   toastController,
 } from "@ionic/vue";
 import store from "@/store";
+import router from "@/router";
 
 export default defineComponent({
   name: "WordbookSelection",
@@ -105,7 +106,7 @@ export default defineComponent({
       return toast.present();
     },
     back() {
-      this.$router.push("/tabs/learn");
+      router.push("/tabs/learn");
     },
     isCurrWordbook(wordbookId) {
       return wordbookId === this.currWordbookId;

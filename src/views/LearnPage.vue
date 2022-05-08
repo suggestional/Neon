@@ -7,12 +7,12 @@
     </ion-header>
     <ion-content fullscreen>
       <ion-list>
-        <ion-item button detail @click="this.$router.push('/select-wordbook')">
+        <ion-item button detail @click="this.$router.push({path: '/select-wordbook', replace: false})">
           <ion-label>
             <h2>切换词书</h2>
           </ion-label>
         </ion-item>
-        <ion-item button detail @click="this.$router.push('/select-unit')">
+        <ion-item button detail @click="this.$router.push({path: '/select-unit', replace: false})">
           <ion-label>
             <h2>开始学习</h2>
           </ion-label>

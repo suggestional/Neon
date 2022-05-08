@@ -63,7 +63,7 @@ export default defineComponent({
 
   methods: {
     goHome() {
-      this.$router.push("/");
+      this.$router.push({path: "/", replace: true});
     }
   }
 });

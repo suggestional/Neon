@@ -40,7 +40,6 @@ import {
   IonCardContent,
   toastController,
 } from "@ionic/vue";
-import Unit from "@/entity/Unit";
 import Queue from "@/lib/Queue";
 import router from "@/router";
 import store from "@/store";
@@ -78,7 +77,7 @@ export default defineComponent({
       if (this.exercise.correctAnswerIndex === index) {
         this.openToast("恭喜，回答正确！", 500);
         if (this.correct()) {
-          router.push({path:'/list-words'});
+          router.push({path:'/list-words', replace: true});
           return;
         }
       } else {

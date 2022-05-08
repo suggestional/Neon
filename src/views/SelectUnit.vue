@@ -2,16 +2,21 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button @click="back()"> 返回 </ion-button>
+        </ion-buttons>
         <ion-title>选择单元</ion-title>
       </ion-toolbar>
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item button
-            @click="select(unit.id)"
-            detail
-            v-for="unit in units"
-            :key="unit.id">
+        <ion-item
+          button
+          @click="select(unit.id)"
+          detail
+          v-for="unit in units"
+          :key="unit.id"
+        >
           <ion-label>
             <h2>{{ unit.name }}</h2>
           </ion-label>
@@ -39,6 +44,8 @@ export default defineComponent({
     IonLabel,
     IonContent,
     IonPage,
+    IonButton,
+    IonButtons,
   },
   data() {
     return {
@@ -50,22 +57,18 @@ export default defineComponent({
         {
           id: "1",
           name: "Unit 1",
-
         },
         {
           id: "2",
           name: "Unit 2",
-
         },
         {
           id: "3",
           name: "Unit 3",
-
         },
         {
           id: "4",
           name: "Unit 4",
-
         },
       ],
       currentId: "0",

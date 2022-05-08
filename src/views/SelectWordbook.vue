@@ -86,7 +86,7 @@ export default defineComponent({
   },
   computed: {
     currWordbookId() {
-      return this.$store.state.currWordbookId;
+      return store.state.currWordbookId;
     },
   },
   methods: {

@@ -43,8 +43,8 @@ import {
   IonButton, toastController,
 
 } from "@ionic/vue";
-import Unit from "@/entity/Unit";
 import router from "@/router";
+import store from "@/store";
 
 var id = 0;
 
@@ -75,7 +75,7 @@ export default {
       }
       if(id >= 9){
         id = 9;
-        router.push({path:'/exercise',query: {unitId: this.unitId}});
+        router.push({path:'/exercise'});
         return;
       }
       this.word = this.words[id];
@@ -108,8 +108,7 @@ export default {
     },
   },
   data() {
-    var data = require('../assets/Book' + this.$store.state.currWordbookId + '/Unit'+ this.$route.query.unitId + '.json');
-    var unit = Unit.initFromJSON(data);
+    var unit = store.state.currUnit
     var words = unit.words;
     return {
       hide:true,
@@ -117,7 +116,6 @@ export default {
       head:false,
       words: words,
       word: words[id],
-      unitId: this.$route.query.unitId,
     };
   },
 }

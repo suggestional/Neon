@@ -1,6 +1,8 @@
 import {shallowMount} from "@vue/test-utils";
 import ExercisePage from "@/views/ExercisePage";
 import router from "@/router";
+import store from "@/store";
+import Unit from "@/entity/Unit";
 
 /*
 用户故事 5 - 进行练习
@@ -14,6 +16,9 @@ import router from "@/router";
  */
 
 describe("进行练习测试", () => {
+  var data = require('@/assets/Book0/Unit0.json');
+  store.state.currUnit = Unit.initFromJSON(data);
+
   test("选用户选择了这道习题的正确选项，那么当前习题应当指向下一题，这道题从题库中删除", () => {
     const wrapper = shallowMount(ExercisePage);
     let exercises = wrapper.componentVM.exercises;
@@ -64,7 +69,7 @@ describe("进行练习测试", () => {
     correctAnswerIndex = curExercise.correctAnswerIndex;
     wrapper.componentVM.selectOption(correctAnswerIndex); // 回答正确
     expect(wrapper.componentVM.exercises.size()).toBe(0); // 做对 i + 1 道题，剩下的题目数量为 10 - (i + 1)
-    expect(pushSpy).toHaveBeenCalledWith({"path": "/list-words", "query": {"unitId": 0}}); // 跳转到结算页面
+    expect(pushSpy).toHaveBeenCalledWith({"path": "/list-words"}); // 跳转到结算页面
   });
 
 });

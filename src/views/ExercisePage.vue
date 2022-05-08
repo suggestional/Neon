@@ -42,9 +42,9 @@ import {
   IonItem,
   toastController
 } from '@ionic/vue';
-import Unit from "@/entity/Unit";
 import Queue from "@/lib/Queue";
 import router from "@/router";
+import store from "@/store";
 
 export default defineComponent({
   name: "ExercisePage.vue",
@@ -62,15 +62,11 @@ export default defineComponent({
   },
 
   data() {
-    var unitId = this.$route ? this.$route.query.unitId : 0;
-    var bookId = this.$store ? this.$store.state.currWordbookId : 0;
-    var data = require('../assets/Book' + bookId + '/Unit' + unitId + '.json');
-    var unit = Unit.initFromJSON(data);
+    var unit = store.state.currUnit;
     var exercises = new Queue(unit.generateExercises());
     return {
       exercises: exercises,
       exercise: exercises.items[0],
-      unitId: unitId
     };
   },
 
@@ -84,7 +80,7 @@ export default defineComponent({
       if (this.exercise.correctAnswerIndex === index) {
         this.openToast("恭喜，回答正确！", 500);
         if (this.correct()) {
-          router.push({path:'/list-words',query: {unitId: this.unitId}});
+          router.push({path:'/list-words'});
           return;
         }
 

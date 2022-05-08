@@ -35,7 +35,7 @@ import {
   IonButton
 } from '@ionic/vue';
 
-import Unit from "@/entity/Unit";
+import store from "@/store";
 
 export default defineComponent({
   name: "ListWordsPage",
@@ -51,8 +51,7 @@ export default defineComponent({
   },
 
   mounted() {
-    let data = require('../assets/Book' + this.$store.state.currWordbookId + '/Unit' + this.$route.query.unitId + '.json');
-    let unit = Unit.initFromJSON(data);
+    let unit = store.state.currUnit;
     this.words = unit.words;
   },
 

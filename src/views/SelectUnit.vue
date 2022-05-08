@@ -22,18 +22,11 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import {
-  IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonList,
-  IonItem,
-  IonContent,
-  IonLabel,
-} from "@ionic/vue";
+import {defineComponent} from "vue";
+import {IonContent, IonHeader, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar,} from "@ionic/vue";
 import router from "@/router";
+import store from "@/store";
+import Unit from "@/entity/Unit";
 
 export default defineComponent({
   name: "SelectUnit",
@@ -81,7 +74,10 @@ export default defineComponent({
   methods: {
     select(unitId) {
       this.currentId = unitId;
-      router.push({path: '/learn-word', query:{unitId: unitId}});
+      var bookId = store.state.currWordbookId;
+      var data = require('../assets/Book' + bookId + '/Unit' + unitId + '.json');
+      store.state.currUnit = Unit.initFromJSON(data);
+      router.push({path: '/learn-word'});
     },
   },
 });

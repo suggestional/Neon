@@ -99,6 +99,7 @@ export default defineComponent({
       let wrongExercise = this.exercises.dequeue();
       this.exercises.enqueue(wrongExercise);
       this.wrongCounts[wrongExercise.id] += 1;
+      // store.state.wrongList.push(wrongExercise);
       return wrongExercise.options[wrongExercise.correctAnswerIndex].text;
     },
 

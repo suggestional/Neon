@@ -64,31 +64,25 @@ export default defineComponent({
      */
     randomReview() {
       var bookId = store.state.currWordbookId;
-      console.log(bookId)
       var words = [];
-      var total = [];
       // TODO: 从一本书中随机选十个单词
-      var unit;
-      var i,j;
-     for (unit=0;unit<=4;unit++) {
-      var data0 = require('../assets/Book' + bookId + '/Unit' + unit + '.json');
-        //var word = Unit.initFromJSON(data);
-        //console.log(data0)
-        for (i=0;i<=9;i++)
-      {
-        total.push(data0[i])
+      let bookLen = 50;
+      var wordsIndex = new Set();
+      while(wordsIndex.size < 10) {
+        wordsIndex.add(Math.floor(Math.random() * bookLen));
+      }
 
+      book = [];
+      for (var unitId = 0; unitId < 5; ++unitId) {
+        var book = book.concat(require('../assets/Book' + bookId + '/Unit' + unitId + '.json'));
       }
-      }
-      //console.log(total)
-      for( j=0;j<10;j++){
-        var random = parseInt(Math.random()*total.length)
-        words.push(total[random])
-      }
-     console.log(words)
+
+      wordsIndex.forEach(function (wordIndex) {
+        words.push(book[wordIndex]);
+      });
+
       store.state.currUnit = Unit.initFromJSON(words);
       store.state.currUnit = new Unit(words);
-     //console.log(store.state.currUnit)
       router.push({path: "/exercise", replace: true});
     },
   },

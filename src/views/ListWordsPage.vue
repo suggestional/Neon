@@ -41,6 +41,7 @@ import {
 } from '@ionic/vue';
 
 import store from "@/store";
+import router from "@/router";
 
 export default defineComponent({
   name: "ListWordsPage",
@@ -70,7 +71,7 @@ export default defineComponent({
 
   methods: {
     goHome() {
-      this.$router.push({path: "/", replace: true});
+      router.push({path: "/", replace: true});
     }
   }
 });

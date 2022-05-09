@@ -75,6 +75,10 @@ export default defineComponent({
     };
   },
   methods: {
+    back() {
+      router.push({path: "/tabs/learn", replace: true});
+    },
+
     select(unitId) {
       this.currentId = unitId;
       var bookId = store.state.currWordbookId;

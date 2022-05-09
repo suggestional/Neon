@@ -93,6 +93,6 @@ describe("根据词书随机选择复习单词", () => {
         correctAnswerIndex = curExercise.correctAnswerIndex;
         wrapper.componentVM.selectOption(correctAnswerIndex); // 回答正确
         expect(wrapper.componentVM.exercises.size()).toBe(0); // 做对 i + 1 道题，剩下的题目数量为 10 - (i + 1)
-        expect(pushSpy).toHaveBeenCalledWith({path: "/list-words"}); // 跳转到结算页面
+        expect(pushSpy).toHaveBeenCalledWith({path: "/list-words", replace: true,}); // 跳转到结算页面
     });
 });

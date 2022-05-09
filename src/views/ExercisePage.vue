@@ -60,6 +60,7 @@ export default defineComponent({
 
   data() {
     var unit = store.state.currUnit;
+    console.log(unit)
     var exercises = new Queue(unit.generateExercises());
     var wrongCounts = new Array(10).fill(0);
     return {

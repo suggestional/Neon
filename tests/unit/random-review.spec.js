@@ -34,6 +34,33 @@ describe("根据词书随机选择复习单词", () => {
         }
     });
 
+    test("给定一本词书，当用户开始随机复习，那么应当随机选择十个单词，单词都在给定词书内", () => {
+        var bookId = store.state.currWordbookId;
+        let bookLen = 50;
+        var wordsIndex = new Set();
+        while(wordsIndex.size < 10) {
+            wordsIndex.add(Math.floor(Math.random() * bookLen));
+        }
+
+        book = [];
+        for (var unitId = 0; unitId < 5; ++unitId) {
+            var book = book.concat(require('../../src/assets/Book' + bookId + '/Unit' + unitId + '.json'));
+        }
+
+        const wrapper = shallowMount(ReviewPage);
+        wrapper.componentVM.randomReview();//选择随机复习
+        let words = store.state.currUnit;
+        let expectExercises = words.generateExercises();
+        words = []
+        for(let i = 0;i<10;i++){
+            words.push(expectExercises[i].word)
+        }
+
+        for(let j = 0;j<words.length;j++){
+            expect(book).toContainEqual(words[j]);
+        }
+    });
+
     test("给定一个习题组和当前正在做的习题，当用户选择了这道习题的正确选项，那么当前习题应当指向下一题，这道题从题库中删除", () => {
         const reviewWrapper = shallowMount(ReviewPage);
         reviewWrapper.componentVM.randomReview();//选择随机复习

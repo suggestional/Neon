@@ -65,7 +65,8 @@ export default defineComponent({
     randomReview() {
       var bookId = store.state.currWordbookId;
       var words = [];
-      // TODO: 从一本书中随机选十个单词
+
+      // 从一本书中随机选十个单词
       let bookLen = 50;
       var wordsIndex = new Set();
       while(wordsIndex.size < 10) {

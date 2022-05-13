@@ -22,9 +22,9 @@
             <h2>{{ wordbook.name }}</h2>
             <p>{{ wordbook.description }}</p>
           </ion-label>
-          <ion-badge v-if="isCurrWordbook(wordbook.id)" color="secondary"
-            >当前词书</ion-badge
-          >
+          <ion-badge v-if="isCurrWordbook(wordbook.id)" color="secondary">
+            当前词书
+          </ion-badge>
         </ion-item>
       </ion-list>
     </ion-content>

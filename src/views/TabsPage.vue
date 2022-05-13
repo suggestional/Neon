@@ -8,10 +8,10 @@
           <ion-label>学习</ion-label>
         </ion-tab-button>
 
-<!--        <ion-tab-button tab="review" href="/tabs/review">-->
-<!--          <ion-icon :icon="triangle" />-->
-<!--          <ion-label>Review</ion-label>-->
-<!--        </ion-tab-button>-->
+        <ion-tab-button tab="review" href="/tabs/review">
+          <ion-icon :icon="school" />
+          <ion-label>复习</ion-label>
+        </ion-tab-button>
 
         <ion-tab-button tab="settings" href="/tabs/settings">
           <ion-icon :icon="settings" />
@@ -25,7 +25,7 @@
 <script>
 import { defineComponent } from 'vue';
 import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage, IonRouterOutlet } from '@ionic/vue';
-import { book, settings } from 'ionicons/icons';
+import { book, settings, school } from 'ionicons/icons';
 
 export default defineComponent({
   name: 'TabsPage',
@@ -33,6 +33,7 @@ export default defineComponent({
   setup() {
     return {
       book,
+      school,
       settings,
     }
   }

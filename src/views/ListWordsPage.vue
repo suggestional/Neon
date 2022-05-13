@@ -1,3 +1,4 @@
+<!-- 这个页面应当有：根据记忆曲线复习，根据错题本复习，随即复习 三个栏目 -->
 <template>
   <ion-page>
     <ion-header>
@@ -13,6 +14,10 @@
         <ion-label>
           {{ word.japanese }}
         </ion-label>
+        <ion-badge color="secondary">
+          回答错误 {{ wrongCounts[index] }} 次
+        </ion-badge>
+
       </ion-item>
 
       <ion-button color="primary" @click="goHome()" expand="block">返回首页</ion-button>
@@ -36,6 +41,7 @@ import {
 } from '@ionic/vue';
 
 import store from "@/store";
+import router from "@/router";
 
 export default defineComponent({
   name: "ListWordsPage",
@@ -52,18 +58,20 @@ export default defineComponent({
 
   mounted() {
     let unit = store.state.currUnit;
+    this.wrongCounts = store.state.wrongCounts;
     this.words = unit.words;
   },
 
   data() {
     return {
-      words: this.words
+      words: this.words,
+      wrongCounts: this.wrongCounts,
     };
   },
 
   methods: {
     goHome() {
-      this.$router.push({path: "/", replace: true});
+      router.push({path: "/", replace: true});
     }
   }
 });

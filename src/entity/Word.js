@@ -42,11 +42,12 @@ class Word {
     /**
      * @function generateExercise
      * @description 生成本单词对应的练习题
+     * @param {Number} id - 练习题对应单词在 Unit 中的下标
      * @param {Unit} unit - 生成练习题的所属的单元
      * @param {Number} questionType - 生成练习题的题面类型
      * @return {Exercise} 练习题
      */
-    generateExercise(unit, questionType) {
+    generateExercise(id, unit, questionType) {
         let correctAnswerIndex = Math.floor(Math.random() * 4);
         let words = unit.chooseWordForOptions(this);
         words.splice(correctAnswerIndex, 0, this);
@@ -59,7 +60,7 @@ class Word {
         for (let i = 0; i < words.length; i++) {
             words[i] = words[i].generateOption(optionType);
         }
-        return new Exercise(this, this.generateOption(questionType), words, correctAnswerIndex);
+        return new Exercise(id, this, this.generateOption(questionType), words, correctAnswerIndex);
     }
 
     /**

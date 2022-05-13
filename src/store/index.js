@@ -6,6 +6,7 @@ export default createStore({
   state() {
     return {
       currWordbookId: localStorage.getItem("currWordbookId") || "0",
+      wrongList: localStorage.getItem("wrongList") || [],
     };
   },
   mutations: {

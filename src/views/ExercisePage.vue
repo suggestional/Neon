@@ -61,9 +61,11 @@ export default defineComponent({
   data() {
     var unit = store.state.currUnit;
     var exercises = new Queue(unit.generateExercises());
+    var wrongCounts = new Array(10).fill(0);
     return {
       exercises: exercises,
       exercise: exercises.items[0],
+      wrongCounts: wrongCounts,
     };
   },
 
@@ -77,6 +79,7 @@ export default defineComponent({
       if (this.exercise.correctAnswerIndex === index) {
         this.openToast("恭喜，回答正确！", 500);
         if (this.correct()) {
+          store.state.wrongCounts = this.wrongCounts;
           router.push({path:'/list-words', replace: true});
           return;
         }
@@ -94,6 +97,11 @@ export default defineComponent({
     wrong() {
       let wrongExercise = this.exercises.dequeue();
       this.exercises.enqueue(wrongExercise);
+      this.wrongCounts[wrongExercise.id] += 1;
+      // 如果错题本中没有添加这道题，则添加
+      if(store.state.wrongList.indexOf(wrongExercise) === -1) {
+        store.state.wrongList.push(wrongExercise);
+      }
       return wrongExercise.options[wrongExercise.correctAnswerIndex].text;
     },
 

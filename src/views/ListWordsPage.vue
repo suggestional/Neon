@@ -37,7 +37,8 @@ import {
   IonContent,
   IonLabel,
   IonItem,
-  IonButton
+  IonButton,
+  IonBadge,
 } from '@ionic/vue';
 
 import store from "@/store";
@@ -53,7 +54,8 @@ export default defineComponent({
     IonPage,
     IonLabel,
     IonItem,
-    IonButton
+    IonButton,
+    IonBadge,
   },
 
   mounted() {

@@ -1,6 +1,5 @@
 import {shallowMount} from "@vue/test-utils";
 import ExercisePage from "@/views/ExercisePage";
-import router from "@/router";
 import store from "@/store";
 import Unit from "@/entity/Unit";
 

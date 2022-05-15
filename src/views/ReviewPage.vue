@@ -82,7 +82,6 @@ export default defineComponent({
         words.push(book[wordIndex]);
       });
 
-      store.state.currUnit = Unit.initFromJSON(words);
       store.state.currUnit = new Unit(words);
       router.push({path: "/exercise", replace: true});
     },

@@ -13,10 +13,10 @@
       </ion-item>
 
       <ion-card
-        button
-        @click="selectOption(index)"
-        v-for="(option, index) in exercise.options"
-        :key="index"
+          button
+          @click="selectOption(index)"
+          v-for="(option, index) in exercise.options"
+          :key="index"
       >
         <ion-card-content>
           <p>{{ option.text }}</p>
@@ -40,12 +40,11 @@ import {
   IonCardContent,
   toastController,
 } from "@ionic/vue";
-import Queue from "@/lib/Queue";
 import router from "@/router";
 import store from "@/store";
 
 export default defineComponent({
-  name: "ExercisePage",
+  name: "WrongListReviewPage",
   components: {
     IonHeader,
     IonToolbar,
@@ -59,14 +58,8 @@ export default defineComponent({
   },
 
   data() {
-    var unit = store.state.currUnit;
-    console.log(unit);
-    var exercises = new Queue(unit.generateExercises());
-    var wrongCounts = new Array(10).fill(0);
     return {
-      exercises: exercises,
-      exercise: exercises.items[0],
-      wrongCounts: wrongCounts,
+      exercise: store.state.wrongList.items[0],
     };
   },
 
@@ -76,18 +69,22 @@ export default defineComponent({
      * @description 选择了某个选项，判断选项是否正确
      * @param {Number} index - 选择的选项下标
      */
-    selectOption(index) {
+    async selectOption(index) {
       if (this.exercise.correctAnswerIndex === index) {
-        this.openToast("恭喜，回答正确！", 500);
         if (this.correct()) {
-          store.state.wrongCounts = this.wrongCounts;
-          router.push({path:'/list-words', replace: true});
+          for(let i = 5; i > 0; --i) {
+            await this.openToast("恭喜，错题本已清空，" + i + " 秒后回到复习界面！", 1000);
+          }
+          await router.push({path: '/tabs/review', replace: true});
           return;
+        }
+        else {
+          this.openToast("恭喜，回答正确！", 500);
         }
       } else {
         this.openToast("回答错误，正确答案：" + this.wrong(), 1500);
       }
-      this.exercise = this.exercises.items[0];
+      this.exercise = store.state.wrongList.items[0];
     },
 
     /**
@@ -96,13 +93,8 @@ export default defineComponent({
      * @return {String} 练习题的正确答案
      */
     wrong() {
-      let wrongExercise = this.exercises.dequeue();
-      this.exercises.enqueue(wrongExercise);
-      this.wrongCounts[wrongExercise.id] += 1;
-      // 如果错题本中没有添加这道题，则添加
-      if(store.state.wrongList.indexOf(wrongExercise) === -1) {
-        store.state.wrongList.enqueue(wrongExercise);
-      }
+      let wrongExercise = store.state.wrongList.dequeue();
+      store.state.wrongList.enqueue(wrongExercise);
       return wrongExercise.options[wrongExercise.correctAnswerIndex].text;
     },
 
@@ -112,8 +104,8 @@ export default defineComponent({
      * @return {Boolean} 练习题是否全部回答完毕
      */
     correct() {
-      this.exercises.dequeue();
-      return this.exercises.isEmpty();
+      store.state.wrongList.dequeue();
+      return store.state.wrongList.isEmpty();
     },
 
     /**

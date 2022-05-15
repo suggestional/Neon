@@ -46,7 +46,6 @@ class Queue {
         return this.items;
     }
 
-
     /**
      * @function size
      * @description 求队列长度
@@ -55,6 +54,17 @@ class Queue {
     size() {
         return this.items.length;
     }
+
+    /**
+     * @function indexOf
+     * @description 查询元素下标，如果没有，返回 -1
+     * @param {Object} item - 要查询的元素
+     * @return {Number} 元素的下标
+     */
+    indexOf(item) {
+        return this.items.indexOf(item);
+    }
+
 }
 
 export default Queue;

@@ -12,7 +12,7 @@
             <h2>根据记忆曲线复习</h2>
           </ion-label>
         </ion-item>
-        <ion-item button detail @click="this.$router.push({path: '/@todo', replace: false})">
+        <ion-item button detail @click="wrongListReview()">
           <ion-label>
             <h2>根据错题本复习</h2>
           </ion-label>
@@ -38,7 +38,7 @@ import {
   IonTitle,
   IonLabel,
   IonItem,
-  IonList,
+  IonList, toastController,
 } from "@ionic/vue";
 import store from "@/store";
 import Unit from "@/entity/Unit";
@@ -82,8 +82,37 @@ export default defineComponent({
         words.push(book[wordIndex]);
       });
 
-      store.state.currUnit = new Unit(words);
+      console.log(words);
+      store.state.currUnit = Unit.initFromJSON(words);
+      console.log(store.state.currUnit);
       router.push({path: "/exercise", replace: true});
+    },
+
+    /**
+     * @function wrongListReview
+     * @description 随机从当前词书中选择十个单词，组成一个 Unit，存入 store 中，然后跳转到 Exercise 界面
+     */
+    wrongListReview() {
+      if(store.state.wrongList.size() <= 0) {
+        this.openToast("错题本已清空", 1000);
+      }
+      else {
+        router.push({path: '/wrong-list-review', replace: false});
+      }
+    },
+
+    /**
+     * @function openToast
+     * @description 打开 Toast 提示框
+     * @param {String} msg - 要提示的信息
+     * @param {Number} duration - 持续时间，单位为 ms
+     */
+    async openToast(msg, duration) {
+      const toast = await toastController.create({
+        message: msg,
+        duration: duration,
+      });
+      return toast.present();
     },
   },
 

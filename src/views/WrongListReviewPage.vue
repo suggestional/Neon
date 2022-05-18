@@ -13,10 +13,10 @@
       </ion-item>
 
       <ion-card
-          button
-          @click="selectOption(index)"
-          v-for="(option, index) in exercise.options"
-          :key="index"
+        button
+        @click="selectOption(index)"
+        v-for="(option, index) in exercise.options"
+        :key="index"
       >
         <ion-card-content>
           <p>{{ option.text }}</p>
@@ -39,6 +39,7 @@ import {
   IonItem,
   IonCardContent,
   toastController,
+  alertController,
 } from "@ionic/vue";
 import router from "@/router";
 import store from "@/store";
@@ -72,13 +73,21 @@ export default defineComponent({
     async selectOption(index) {
       if (this.exercise.correctAnswerIndex === index) {
         if (this.correct()) {
-          for(let i = 5; i > 0; --i) {
-            await this.openToast("恭喜，错题本已清空，" + i + " 秒后回到复习界面！", 1000);
-          }
-          await router.push({path: '/tabs/review', replace: true});
+          const alert = await alertController.create({
+            header: "错题本已清空",
+            message: "恭喜，错题本已清空，点击按钮回到复习界面",
+            buttons: [
+              {
+                text: "返回",
+                handler: () => {
+                  router.push({ path: "/tabs/review", replace: true });
+                },
+              },
+            ],
+          });
+          await alert.present();
           return;
-        }
-        else {
+        } else {
           this.openToast("恭喜，回答正确！", 500);
         }
       } else {

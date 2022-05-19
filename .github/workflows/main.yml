@@ -24,14 +24,11 @@ jobs:
           source: "./*"
           target: "/home/Neon"
 
-      - name: ionic serve
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd /home/Neon
-            kill -9 $(lsof -i :8100 -t)
-            ionic serve
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install paramiko
+
+      - name: Serve
+        run: |
+          python3 main.py -h ${{ secrets.HOST }} -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }}

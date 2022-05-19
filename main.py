@@ -26,14 +26,9 @@ if __name__ == '__main__':
     password = password
     )
 
-    stdin,stdout,stderr = ssh.exec_command("cd /home/Neon")
-    print(stdout.read().decode(), stderr.read().decode())
     stdin,stdout,stderr = ssh.exec_command("kill -9 $(lsof -i :8100 -t)")
     print(stdout.read().decode(), stderr.read().decode())
-    stdin,stdout,stderr = ssh.exec_command("/home/node-v14.18.1-linux-x64/bin/ionic serve", get_pty=False)
+    stdin,stdout,stderr = ssh.exec_command("cd /home/Neon;nohup /home/node-v14.18.1-linux-x64/bin/ionic serve &", get_pty=False)
     print(stdout.read().decode(), stderr.read().decode())
 
     ssh.close()
-
-
-

@@ -8,6 +8,7 @@ import LearnWord from "../views/LearnWord.vue";
 import ExercisePage from "@/views/ExercisePage";
 import SelectUnit from "../views/SelectUnit";
 import ListWordsPage from "@/views/ListWordsPage";
+import WrongListReviewPage from "@/views/WrongListReviewPage";
 
 const routes = [
   {
@@ -57,6 +58,11 @@ const routes = [
     path: "/list-words",
     component: ListWordsPage,
   },
+  {
+    path: "/wrong-list-review",
+    component: WrongListReviewPage,
+  },
+
 ];
 
 const router = createRouter({

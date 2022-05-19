@@ -1,12 +1,13 @@
 import { createStore } from "vuex";
 import createPersistedState from "vuex-persistedstate";
+import Queue from "@/lib/Queue";
 
 export default createStore({
   plugins: [createPersistedState],
   state() {
     return {
       currWordbookId: localStorage.getItem("currWordbookId") || "0",
-      wrongList: localStorage.getItem("wrongList") || [],
+      wrongList: localStorage.getItem("wrongList") || new Queue([]),
     };
   },
   mutations: {

@@ -19,8 +19,8 @@ class Unit {
     static initFromJSON(data) {
         let words = [];
         data.forEach(function (word) {
-           word.__proto__ = new Word();
-           words.push(word);
+            word.__proto__ = new Word();
+            words.push(word);
         });
         return new Unit(words);
     }
@@ -35,7 +35,7 @@ class Unit {
         let wordsLen = this.words.length;
         let questionType = Math.ceil(Math.random() * 3);
 
-        for(var i = 0; i < wordsLen; ++i) {
+        for (var i = 0; i < wordsLen; ++i) {
             exercises.push(this.words[i].generateExercise(i, this, questionType));
         }
 

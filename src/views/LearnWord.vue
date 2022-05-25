@@ -84,7 +84,6 @@ export default {
 
   methods: {
     next() {
-      console.log(id);
       id = id + 1;
       if (id === 9) {
         this.openToast("It is the end of the unit", 1000);
@@ -92,6 +91,14 @@ export default {
       if (id >= 10) {
         id = 0
         this.id = id;
+        // 如果已经存在学习记录，那么增加一次学习记录，否则创建新的映射
+        if(store.state.progress.get(store.state.fullUnitId) === undefined) {
+          store.state.progress.set(store.state.fullUnitId, [new Date(new Date().toLocaleDateString())]);
+        }
+        else {
+          store.state.progress.get(store.state.fullUnitId).push(new Date(new Date().toLocaleDateString()));
+        }
+        console.log(store.state.progress);
         router.push({path:'/exercise', replace: true});
       }
       this.word = this.words[id];

@@ -18,8 +18,12 @@
           :key="unit.id"
         >
           <ion-label>
-            <h2>{{ unit.name }}</h2>
+            <h2>{{ unit.name }} </h2>
           </ion-label>
+          <ion-badge v-if="hasBeenLearned(wordbookId + ' ' + unit.id)" color="secondary">
+            已学习
+          </ion-badge>
+
         </ion-item>
       </ion-list>
     </ion-content>
@@ -72,6 +76,7 @@ export default defineComponent({
         },
       ],
       currentId: "0",
+      wordbookId: store.state.currWordbookId,
     };
   },
   methods: {
@@ -82,10 +87,15 @@ export default defineComponent({
     select(unitId) {
       this.currentId = unitId;
       var bookId = store.state.currWordbookId;
+      store.state.fullUnitId = bookId + " " + unitId;
       var data = require('../assets/Book' + bookId + '/Unit' + unitId + '.json');
       store.state.currUnit = Unit.initFromJSON(data);
       router.push({path: '/learn-word', replace: true});
     },
+
+    hasBeenLearned(fullUnitId) {
+      return store.state.progress.get(fullUnitId) !== undefined;
+    }
   },
 });
 </script>

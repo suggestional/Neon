@@ -8,6 +8,8 @@ export default createStore({
     return {
       currWordbookId: localStorage.getItem("currWordbookId") || "0",
       wrongList: localStorage.getItem("wrongList") || new Queue([]),
+      currDate: localStorage.getItem("currDate") || new Date(new Date().toLocaleDateString()),
+      progress: localStorage.getItem("progress") || new Map(),
     };
   },
   mutations: {

@@ -1,18 +1,26 @@
-name: auto serve
+name: Ionic build
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 12.x, 14.x, 16.x ]
     steps:
-      - name: checkout
-        uses: actions/checkout@master
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run test:unit
 
       - name: scp
         uses: appleboy/scp-action@master
@@ -21,14 +29,10 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-          source: "./*"
-          target: "/home/Neon"
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install paramiko
+          source: "./dist"
+          target: "/home"
 
       - name: Serve
         run: |
-          python3 main.py -h ${{ secrets.HOST }} -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }}
+          cd /home
+          serve -s dist

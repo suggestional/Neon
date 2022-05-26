@@ -7,9 +7,9 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item button @click="buttonClick()" detail>
+        <ion-item button @click="this.$router.push({path: '/learning-progress', replace: false})" detail>
           <ion-label>
-            设置1
+            查看学习记录
           </ion-label>
         </ion-item>
 

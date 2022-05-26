@@ -92,11 +92,11 @@ export default {
         id = 0
         this.id = id;
         // 如果已经存在学习记录，那么增加一次学习记录，否则创建新的映射
-        if(store.state.progress.get(store.state.fullUnitId) === undefined) {
-          store.state.progress.set(store.state.fullUnitId, [new Date(new Date().toLocaleDateString())]);
+        if(typeof(store.state.progress.get(store.state.fullUnitId)) === "undefined") {
+          store.state.progress.set(store.state.fullUnitId, [new Date(store.state.currDate.toLocaleDateString())]);
         }
         else {
-          store.state.progress.get(store.state.fullUnitId).push(new Date(new Date().toLocaleDateString()));
+          store.state.progress.get(store.state.fullUnitId).push(new Date(store.state.currDate.toLocaleDateString()));
         }
         router.push({path:'/exercise', replace: true});
       }

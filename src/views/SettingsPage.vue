@@ -6,15 +6,14 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-
       <ion-list>
         <ion-item button @click="buttonClick()" detail>
           <ion-label>
             设置1
           </ion-label>
         </ion-item>
+
         <ion-item button @click="buttonClick()" detail>
-  <!--        <ion-icon :icon="walk" slot="start"></ion-icon>-->
           <ion-label>
             设置2
           </ion-label>
@@ -29,6 +28,26 @@
             设置4
           </ion-label>
         </ion-item>
+        <ion-item>
+          <ion-button
+              color="primary"
+              size="large"
+              @click="decrease()"
+              style="float: left"
+              disabled
+          >上一天
+          </ion-button>
+          <ion-label style="text-align: center">
+            <ion-title> 当前日期： {{ time }} </ion-title>
+          </ion-label>
+          <ion-button
+              color="primary"
+              size="large"
+              @click="increase()"
+              style="float: right"
+          >下一天
+          </ion-button>
+        </ion-item>
 
       </ion-list>
     </ion-content>
@@ -38,9 +57,50 @@
 <script>
 import { defineComponent } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonList, IonItem, IonContent, IonLabel } from '@ionic/vue';
+import store from "@/store";
 
 export default defineComponent({
   name: 'SettingsPage',
-  components: { IonHeader, IonToolbar, IonTitle, IonList, IonItem, IonLabel, IonContent, IonPage }
+  components: { IonHeader, IonToolbar, IonTitle, IonList, IonItem, IonLabel, IonContent, IonPage },
+  methods: {
+    /**
+     * @function increase
+     * @description 下一天
+     */
+    increase() {
+      store.state.currDate = new Date(store.state.currDate.getTime() + (24*3600*1000));
+      this.time = this.formatDate(store.state.currDate);
+    },
+
+    /**
+     * @function decrease
+     * @description 上一天
+     */
+    decrease() {
+      store.state.currDate = new Date(store.state.currDate.getTime() - (24*3600*1000));
+      this.time = this.formatDate(store.state.currDate);
+    },
+
+    /**
+     * @function formatDate
+     * @description 格式化日期
+     * @param {Date} date - 要格式化的日期
+     * @return {String} 格式化后的日期
+     */
+    formatDate(date){
+      var y = date.getFullYear();
+      var m = date.getMonth()+1;
+      var d = date.getDate();
+      m = m < 10 ? ("0" + m) : m;
+      d = d < 10 ? ("0" + d) : d;
+      return y + "-" + m + "-" + d + " ";
+    },
+  },
+  data() {
+    return {
+      time: this.formatDate(store.state.currDate),
+    };
+  },
+
 });
 </script>

@@ -32,7 +32,11 @@ jobs:
           source: "./dist"
           target: "/home"
 
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install paramiko
+
       - name: Serve
         run: |
-          cd /home
-          serve -s dist
+          python3 main.py -h ${{ secrets.HOST }} -u ${{ secrets.USERNAME }} -p ${{ secrets.PASSWORD }} 

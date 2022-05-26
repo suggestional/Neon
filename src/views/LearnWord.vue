@@ -98,7 +98,6 @@ export default {
         else {
           store.state.progress.get(store.state.fullUnitId).push(new Date(new Date().toLocaleDateString()));
         }
-        console.log(store.state.progress);
         router.push({path:'/exercise', replace: true});
       }
       this.word = this.words[id];

@@ -52,10 +52,12 @@ class Word {
         let words = unit.chooseWordForOptions(this);
         words.splice(correctAnswerIndex, 0, this);
 
-        let optionType;
+        let optionType, questionEqualsOption;
         do {
             optionType = Math.ceil(Math.random() * 3);
-        } while(questionType === optionType);
+            // 保证题面和答案不同
+            questionEqualsOption = this.generateOption(questionType).text === this.generateOption(optionType).text
+        } while(questionEqualsOption);
 
         for (let i = 0; i < words.length; i++) {
             words[i] = words[i].generateOption(optionType);

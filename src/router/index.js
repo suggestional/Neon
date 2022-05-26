@@ -62,7 +62,6 @@ const routes = [
     path: "/wrong-list-review",
     component: WrongListReviewPage,
   },
-
 ];
 
 const router = createRouter({

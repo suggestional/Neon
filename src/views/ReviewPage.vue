@@ -82,9 +82,7 @@ export default defineComponent({
         words.push(book[wordIndex]);
       });
 
-      console.log(words);
       store.state.currUnit = Unit.initFromJSON(words);
-      console.log(store.state.currUnit);
       router.push({path: "/exercise", replace: true});
     },
 
@@ -101,6 +99,12 @@ export default defineComponent({
       }
     },
 
+    memoryCurveReview() {
+
+    },
+
+
+
     /**
      * @function openToast
      * @description 打开 Toast 提示框
@@ -115,10 +119,6 @@ export default defineComponent({
       return toast.present();
     },
   },
-
-
-
-
 });
 
 </script>

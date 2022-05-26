@@ -9,6 +9,7 @@ import ExercisePage from "@/views/ExercisePage";
 import SelectUnit from "../views/SelectUnit";
 import ListWordsPage from "@/views/ListWordsPage";
 import WrongListReviewPage from "@/views/WrongListReviewPage";
+import TimeSettingPage from "../views/TimeSettingPage";
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
         path: "settings",
         component: SettingsPage,
       },
+      {
+        path: "time-setting",
+        component: TimeSettingPage,
+      },
+
     ],
   },
   {
@@ -62,7 +68,6 @@ const routes = [
     path: "/wrong-list-review",
     component: WrongListReviewPage,
   },
-
 ];
 
 const router = createRouter({

@@ -17,6 +17,11 @@
           <ion-icon :icon="settings" />
           <ion-label>设置</ion-label>
         </ion-tab-button>
+
+        <ion-tab-button tab="time-setting" href="/tabs/time-setting">
+          <ion-icon :icon="settings" />
+          <ion-label>时间</ion-label>
+        </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </ion-page>

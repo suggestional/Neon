@@ -115,6 +115,9 @@ export default {
     },
 
     async openToast(msg, duration) {
+      if(store.state.debug) {
+        return;
+      }
       const toast = await toastController.create({
         message: msg,
         duration: duration,

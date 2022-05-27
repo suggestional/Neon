@@ -10,6 +10,7 @@ export default createStore({
       wrongList: localStorage.getItem("wrongList") || new Queue([]),
       currDate: localStorage.getItem("currDate") || new Date(new Date().toLocaleDateString()),
       progress: localStorage.getItem("progress") || new Map(),
+      debug: localStorage.getItem("debug") || false,
     };
   },
   mutations: {

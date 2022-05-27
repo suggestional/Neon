@@ -33,13 +33,25 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonPage } from '@ionic/vue';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonAccordion,
+  IonAccordionGroup,
+  IonItem,
+  IonLabel,
+  IonPage,
+  IonList,
+  IonButton,
+  IonContent,
+} from '@ionic/vue';
 import store from "@/store";
 import router from "@/router";
 
 export default defineComponent({
   name: 'LearningProgressPage',
-  components: { IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonPage },
+  components: { IonButton, IonHeader, IonToolbar, IonTitle, IonList, IonAccordion, IonAccordionGroup, IonItem, IonLabel, IonPage, IonContent },
 
   mounted() {
     let progress = store.state.progress;
@@ -49,7 +61,6 @@ export default defineComponent({
         dates.add(learningDate.toLocaleDateString());
       });
     });
-    console.log(dates);
 
     dates = Array.from(dates).sort();   // 按顺序排列所有学习日期
     let datesLen = dates.length;
@@ -84,7 +95,3 @@ export default defineComponent({
 
 });
 </script>
-
-<style scoped>
-
-</style>

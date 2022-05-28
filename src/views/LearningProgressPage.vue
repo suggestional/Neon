@@ -40,6 +40,7 @@ import {
   IonList,
   IonButton,
   IonContent,
+  IonButtons,
 } from "@ionic/vue";
 import store from "@/store";
 import router from "@/router";
@@ -58,6 +59,7 @@ export default defineComponent({
     IonLabel,
     IonPage,
     IonContent,
+    IonButtons,
   },
 
   mounted() {
@@ -95,7 +97,7 @@ export default defineComponent({
 
   methods: {
     back() {
-      router.push({ path: "/", replace: true });
+      router.push({ path: "/tabs/settings", replace: true });
     },
   },
 });

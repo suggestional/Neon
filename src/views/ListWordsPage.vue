@@ -34,6 +34,7 @@ import {
   IonItem,
   IonButton,
   IonBadge,
+  IonButtons
 } from "@ionic/vue";
 
 import store from "@/store";
@@ -51,6 +52,7 @@ export default defineComponent({
     IonItem,
     IonButton,
     IonBadge,
+    IonButtons
   },
 
   mounted() {

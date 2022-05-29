@@ -2,6 +2,9 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button @click="back()"> 返回 </ion-button>
+        </ion-buttons>
         <ion-title>练习</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -38,6 +41,7 @@ import {
   IonCard,
   IonItem,
   IonCardContent,
+  IonButton,
   toastController,
   alertController,
 } from "@ionic/vue";
@@ -56,6 +60,7 @@ export default defineComponent({
     IonCard,
     IonItem,
     IonCardContent,
+    IonButton,
   },
 
   data() {
@@ -129,6 +134,10 @@ export default defineComponent({
         duration: duration,
       });
       return toast.present();
+    },
+
+    back() {
+      router.push({ path: "/tabs/review", replace: false });
     },
   },
 });

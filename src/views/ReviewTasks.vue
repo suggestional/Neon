@@ -111,6 +111,33 @@ export default defineComponent({
     IonButtons,
   },
 
+  mounted() {
+    let reviewProgress = store.state.reviewProgress;
+    let reviewSettings = store.state.reviewSettings;
+    let currReviewTasks = [];
+    let overdueReviewTasks = [];
+
+    reviewProgress.forEach(function (reviewTasks) {
+      reviewTasks.forEach(function (reviewTask) {
+        let supposedDay = dayjs(reviewTask.learnedDate).add(
+            reviewSettings.get(reviewTask.reviewId),
+            "day"
+        );
+        if (supposedDay.isSame(dayjs(store.state.currDate), "day")) {
+          currReviewTasks.push(reviewTask);
+        } else if (
+            supposedDay.isBefore(dayjs(store.state.currDate), "day") &&
+            !reviewTask.isCompleted
+        ) {
+          overdueReviewTasks.push(reviewTask);
+        }
+      });
+    });
+
+    this.currReviewTasks = currReviewTasks;
+    this.overdueReviewTasks = overdueReviewTasks;
+  },
+
   beforeUpdate() {
     let reviewProgress = store.state.reviewProgress;
     let reviewSettings = store.state.reviewSettings;

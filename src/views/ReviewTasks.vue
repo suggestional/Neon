@@ -111,7 +111,7 @@ export default defineComponent({
     IonButtons,
   },
 
-  mounted() {
+  beforeUpdate() {
     let reviewProgress = store.state.reviewProgress;
     let reviewSettings = store.state.reviewSettings;
     let currReviewTasks = [];

@@ -34,7 +34,7 @@ import {
   IonItem,
   IonButton,
   IonBadge,
-  IonButtons
+  IonButtons,
 } from "@ionic/vue";
 
 import store from "@/store";
@@ -52,13 +52,30 @@ export default defineComponent({
     IonItem,
     IonButton,
     IonBadge,
-    IonButtons
+    IonButtons,
   },
 
   mounted() {
     let unit = store.state.currUnit;
     this.wrongCounts = store.state.wrongCounts;
     this.words = unit.words;
+
+    // 结算时记录复习
+    let fullUnitId = store.state.fullUnitId;
+    let reviewProgress = store.state.reviewProgress;
+    let reviewTasks = reviewProgress.get(fullUnitId);
+    if (reviewTasks !== undefined) {
+      for (const reviewTask of reviewTasks) {
+        if (reviewTask.reviewId === store.state.currReviewId) {
+          reviewTask.isCompleted = true;
+          break;
+        }
+      }
+    }
+
+    // 移除 fullUnitId 和 reviewId，避免干扰下次复习
+    store.commit("removeFullUnitId");
+    store.commit("removeCurrReviewId");
   },
 
   data() {

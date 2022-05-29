@@ -153,7 +153,7 @@ export default defineComponent({
       let tokens = fullUnitId.split(" ");
       let data = require("../assets/" + tokens[0] + "/" + tokens[1] + ".json");
       store.state.currUnit = Unit.initFromJSON(data);
-      router.push({ path: "/exercise", replace: false });
+      router.push({ path: "/exercise", replace: true });
     },
 
     back() {

@@ -9,7 +9,13 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-accordion-group>
+      <ion-item
+        v-if="dates === null || dates === undefined || dates.length === 0"
+        lines="none"
+      >
+        <ion-label>暂无学习记录！</ion-label>
+      </ion-item>
+      <ion-accordion-group v-else>
         <ion-accordion v-for="(date, index) in dates" :key="index">
           <ion-item slot="header">
             <ion-label>{{ date }}</ion-label>

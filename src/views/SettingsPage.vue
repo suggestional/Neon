@@ -7,9 +7,9 @@
     </ion-header>
     <ion-content>
       <ion-list>
-        <ion-item button @click="buttonClick()" detail>
+        <ion-item button @click="this.$router.push({path: '/learning-progress', replace: false})" detail>
           <ion-label>
-            设置1
+            查看学习记录
           </ion-label>
         </ion-item>
 
@@ -68,8 +68,14 @@ export default defineComponent({
      * @description 下一天
      */
     increase() {
+      /*
       store.state.currDate = new Date(store.state.currDate.getTime() + (24*3600*1000));
       this.time = this.formatDate(store.state.currDate);
+       */
+      store.state.currDate = new Date(store.state.currDate.getTime() + (24*3600*1000));
+      var datetime = store.state.currDate.getFullYear() + '/' + (store.state.currDate.getMonth() + 1) + '/' + store.state.currDate.getDate()
+      let reg = new Date(datetime.replace(/-/g,'/'));
+      this.time = this.formatDate(reg);
     },
 
     /**

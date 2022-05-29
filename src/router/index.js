@@ -9,6 +9,8 @@ import ExercisePage from "@/views/ExercisePage";
 import SelectUnit from "../views/SelectUnit";
 import ListWordsPage from "@/views/ListWordsPage";
 import WrongListReviewPage from "@/views/WrongListReviewPage";
+import LearningProgressPage from "@/views/LearningProgressPage";
+import ReviewTasks from "@/views/ReviewTasks";
 
 const routes = [
   {
@@ -61,6 +63,14 @@ const routes = [
   {
     path: "/wrong-list-review",
     component: WrongListReviewPage,
+  },
+  {
+    path: "/learning-progress",
+    component: LearningProgressPage,
+  },
+  {
+    path: "/review-tasks",
+    component: ReviewTasks,
   },
 ];
 

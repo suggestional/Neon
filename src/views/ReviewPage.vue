@@ -7,7 +7,7 @@
     </ion-header>
     <ion-content fullscreen>
       <ion-list>
-        <ion-item button detail @click="this.$router.push({path: '/@todo', replace: false})">
+        <ion-item button detail @click="memoryCurveReview()">
           <ion-label>
             <h2>根据记忆曲线复习</h2>
           </ion-label>
@@ -22,7 +22,6 @@
             <h2>随机复习</h2>
           </ion-label>
         </ion-item>
-
       </ion-list>
     </ion-content>
   </ion-page>
@@ -38,7 +37,8 @@ import {
   IonTitle,
   IonLabel,
   IonItem,
-  IonList, toastController,
+  IonList,
+  toastController,
 } from "@ionic/vue";
 import store from "@/store";
 import Unit from "@/entity/Unit";
@@ -69,13 +69,15 @@ export default defineComponent({
       // 从一本书中随机选十个单词
       let bookLen = 50;
       var wordsIndex = new Set();
-      while(wordsIndex.size < 10) {
+      while (wordsIndex.size < 10) {
         wordsIndex.add(Math.floor(Math.random() * bookLen));
       }
 
       book = [];
       for (var unitId = 0; unitId < 5; ++unitId) {
-        var book = book.concat(require('../assets/Book' + bookId + '/Unit' + unitId + '.json'));
+        var book = book.concat(
+          require("../assets/Book" + bookId + "/Unit" + unitId + ".json")
+        );
       }
 
       wordsIndex.forEach(function (wordIndex) {
@@ -83,7 +85,7 @@ export default defineComponent({
       });
 
       store.state.currUnit = Unit.initFromJSON(words);
-      router.push({path: "/exercise", replace: true});
+      router.push({ path: "/exercise", replace: true });
     },
 
     /**
@@ -91,19 +93,16 @@ export default defineComponent({
      * @description 随机从当前词书中选择十个单词，组成一个 Unit，存入 store 中，然后跳转到 Exercise 界面
      */
     wrongListReview() {
-      if(store.state.wrongList.size() <= 0) {
+      if (store.state.wrongList.size() <= 0) {
         this.openToast("错题本已清空", 1000);
-      }
-      else {
-        router.push({path: '/wrong-list-review', replace: false});
+      } else {
+        router.push({ path: "/wrong-list-review", replace: false });
       }
     },
 
     memoryCurveReview() {
-
+      this.$router.push({ path: "/review-tasks", replace: false });
     },
-
-
 
     /**
      * @function openToast
@@ -120,9 +119,7 @@ export default defineComponent({
     },
   },
 });
-
 </script>
 
 <style scoped>
-
 </style>

@@ -25,24 +25,24 @@
           @click="next()"
           expand="block"
           v-if="id <= 8"
-        >下一个</ion-button
-        >
+          >下一个
+        </ion-button>
         <ion-button
           class="next"
           color="primary"
           @click="next()"
           expand="block"
           v-if="id >= 9"
-        >开始练习</ion-button
-        >
+          >开始练习
+        </ion-button>
         <ion-button
           class="previous"
           color="primary"
           @click="previous()"
           expand="block"
           v-if="id >= 1"
-        >上一个</ion-button
-        >
+          >上一个
+        </ion-button>
       </ion-content>
     </ion-content>
   </ion-page>
@@ -50,20 +50,21 @@
 
 <script>
 import {
+  IonButton,
   IonCard,
   IonCardContent,
+  IonContent,
   IonHeader,
   IonItem,
-  IonContent,
   IonLabel,
+  IonPage,
   IonTitle,
   IonToolbar,
-  IonButton,
-  IonPage,
   toastController,
 } from "@ionic/vue";
 import router from "@/router";
 import store from "@/store";
+import ReviewTask from "@/entity/ReviewTask";
 
 var id = 0;
 
@@ -89,16 +90,37 @@ export default {
         this.openToast("It is the end of the unit", 1000);
       }
       if (id >= 10) {
-        id = 0
+        id = 0;
         this.id = id;
         // 如果已经存在学习记录，那么增加一次学习记录，否则创建新的映射
-        if(store.state.progress.get(store.state.fullUnitId) === undefined) {
-          store.state.progress.set(store.state.fullUnitId, [new Date(new Date().toLocaleDateString())]);
+        if (
+          typeof store.state.progress.get(store.state.fullUnitId) ===
+          "undefined"
+        ) {
+          store.state.progress.set(store.state.fullUnitId, [
+            new Date(store.state.currDate.toLocaleDateString()),
+          ]);
+        } else {
+          store.state.progress
+            .get(store.state.fullUnitId)
+            .push(new Date(store.state.currDate.toLocaleDateString()));
         }
-        else {
-          store.state.progress.get(store.state.fullUnitId).push(new Date(new Date().toLocaleDateString()));
-        }
-        router.push({path:'/exercise', replace: true});
+
+        // 创建新的复习任务；即使已经存在复习任务，也覆盖之前的复习任务
+        let reviewSettings = store.state.reviewSettings;
+        let reviewTasks = [];
+        reviewSettings.forEach(function (value, key) {
+          reviewTasks.push(
+            new ReviewTask(
+              store.state.fullUnitId,
+              key,
+              new Date(store.state.currDate.toLocaleDateString())
+            )
+          );
+        });
+        store.state.reviewProgress.set(store.state.fullUnitId, reviewTasks);
+
+        router.push({ path: "/exercise", replace: true });
       }
       this.word = this.words[id];
       this.id = id;
@@ -115,6 +137,9 @@ export default {
     },
 
     async openToast(msg, duration) {
+      if (store.state.debug) {
+        return;
+      }
       const toast = await toastController.create({
         message: msg,
         duration: duration,
@@ -139,6 +164,7 @@ export default {
   width: 100px;
   float: right;
 }
+
 .previous {
   width: 100px;
   float: left;

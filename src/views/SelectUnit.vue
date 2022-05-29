@@ -20,7 +20,7 @@
           <ion-label>
             <h2>{{ unit.name }} </h2>
           </ion-label>
-          <ion-badge v-if="hasBeenLearned(wordbookId + ' ' + unit.id)" color="secondary">
+          <ion-badge v-if="hasBeenLearned('Book' + wordbookId + ' ' + 'Unit' + unit.id)" color="secondary">
             已学习
           </ion-badge>
 
@@ -87,7 +87,7 @@ export default defineComponent({
     select(unitId) {
       this.currentId = unitId;
       var bookId = store.state.currWordbookId;
-      store.state.fullUnitId = bookId + " " + unitId;
+      store.state.fullUnitId = "Book" + bookId + " " + "Unit" + unitId;
       var data = require('../assets/Book' + bookId + '/Unit' + unitId + '.json');
       store.state.currUnit = Unit.initFromJSON(data);
       router.push({path: '/learn-word', replace: true});

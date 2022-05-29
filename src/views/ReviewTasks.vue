@@ -12,7 +12,7 @@
       <ion-accordion-group>
         <ion-accordion>
           <ion-item slot="header">
-            <ion-label>今日任务</ion-label>
+            <ion-label>今日任务 ({{ currReviewTasks.length }})</ion-label>
           </ion-item>
           <ion-item
             v-if="currReviewTasks.length === 0"
@@ -40,7 +40,7 @@
         </ion-accordion>
         <ion-accordion>
           <ion-item slot="header">
-            <ion-label>过期任务</ion-label>
+            <ion-label>过期任务 ({{ overdueReviewTasks.length }})</ion-label>
           </ion-item>
           <ion-item
             v-if="overdueReviewTasks.length === 0"

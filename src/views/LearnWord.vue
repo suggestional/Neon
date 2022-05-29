@@ -6,7 +6,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-item class="word">
+      <ion-item lines="none">
         <ion-label style="text-align: center">
           <ion-title> {{ word.japanese }}</ion-title>
         </ion-label>

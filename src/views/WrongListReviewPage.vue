@@ -6,7 +6,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content fullscreen>
-      <ion-item>
+      <ion-item lines="none">
         <ion-label>
           {{ exercise.question.text }}
         </ion-label>

@@ -6,7 +6,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content fullscreen>
-      <ion-item>
+      <ion-item lines="none">
         <ion-label>
           {{ exercise.question.text }}
         </ion-label>
@@ -80,7 +80,7 @@ export default defineComponent({
         this.openToast("恭喜，回答正确！", 500);
         if (this.correct()) {
           store.state.wrongCounts = this.wrongCounts;
-          router.push({path:'/list-words', replace: true});
+          router.push({ path: "/list-words", replace: true });
           return;
         }
       } else {
@@ -99,7 +99,7 @@ export default defineComponent({
       this.exercises.enqueue(wrongExercise);
       this.wrongCounts[wrongExercise.id] += 1;
       // 如果错题本中没有添加这道题，则添加
-      if(store.state.wrongList.indexOf(wrongExercise) === -1) {
+      if (store.state.wrongList.indexOf(wrongExercise) === -1) {
         store.state.wrongList.enqueue(wrongExercise);
       }
       return wrongExercise.options[wrongExercise.correctAnswerIndex].text;

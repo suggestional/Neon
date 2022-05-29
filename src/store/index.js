@@ -38,6 +38,9 @@ export default createStore({
     removeCurrReviewId() {
       localStorage.setItem("currReviewId", "");
     },
+    updateReviewSetting(state, payload) {
+      state.reviewSettings.set(payload.reviewId, payload.newVal);
+    },
   },
   actions: {},
   modules: {},

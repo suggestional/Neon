@@ -17,32 +17,84 @@
           <ion-label> 查看学习记录 </ion-label>
         </ion-item>
 
-        <!-- <ion-item button @click="buttonClick()" detail>
-          <ion-label> 设置2 </ion-label>
-        </ion-item>
-        <ion-item button @click="buttonClick()" detail>
-          <ion-label> 设置3 </ion-label>
-        </ion-item>
-        <ion-item button @click="buttonClick()" detail>
-          <ion-label> 设置4 </ion-label>
-        </ion-item> -->
-        <ion-item>
-          <ion-label> 开发者选项 - 当前日期：{{ time }}</ion-label>
-          <ion-button
-            color="primary"
-            fill="clear"
-            @click="decrease()"
-            style="float: left"
-            >上一天
-          </ion-button>
-          <ion-button
-            color="primary"
-            fill="clear"
-            @click="increase()"
-            style="float: right"
-            >下一天
-          </ion-button>
-        </ion-item>
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label>记忆曲线设定</ion-label>
+          </ion-item-divider>
+          <ion-item>
+            <ion-label>第一次复习</ion-label>
+            <ion-input
+              v-model="reviewSetting1"
+              :min="1"
+              :max="reviewSetting2 - 1"
+              type="number"
+              @ionChange="updateReviewSetting('1', this.reviewSetting1)"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>第二次复习</ion-label>
+            <ion-input
+              v-model="reviewSetting2"
+              :min="reviewSetting1 + 1"
+              :max="reviewSetting3 - 1"
+              type="number"
+              @ionChange="updateReviewSetting('2', this.reviewSetting2)"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>第三次复习</ion-label>
+            <ion-input
+              v-model="reviewSetting3"
+              :min="reviewSetting2 + 1"
+              :max="reviewSetting4 - 1"
+              type="number"
+              @ionChange="updateReviewSetting('3', this.reviewSetting3)"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>第四次复习</ion-label>
+            <ion-input
+              v-model="reviewSetting4"
+              :min="reviewSetting3 + 1"
+              :max="reviewSetting5 - 1"
+              type="number"
+              @ionChange="updateReviewSetting('4', this.reviewSetting4)"
+            ></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>第五次复习</ion-label>
+            <ion-input
+              v-model="reviewSetting5"
+              :min="reviewSetting4 + 1"
+              :max="15"
+              type="number"
+              @ionChange="updateReviewSetting('5', this.reviewSetting5)"
+            ></ion-input>
+          </ion-item>
+        </ion-item-group>
+
+        <ion-item-group>
+          <ion-item-divider>
+            <ion-label> 开发者选项 </ion-label>
+          </ion-item-divider>
+          <ion-item>
+            <ion-label>当前日期：{{ time }}</ion-label>
+            <ion-button
+              color="primary"
+              fill="clear"
+              @click="decrease()"
+              style="float: left"
+              >上一天
+            </ion-button>
+            <ion-button
+              color="primary"
+              fill="clear"
+              @click="increase()"
+              style="float: right"
+              >下一天
+            </ion-button>
+          </ion-item>
+        </ion-item-group>
       </ion-list>
     </ion-content>
   </ion-page>
@@ -60,6 +112,9 @@ import {
   IonContent,
   IonLabel,
   IonButton,
+  IonItemGroup,
+  IonItemDivider,
+  IonInput,
 } from "@ionic/vue";
 import store from "@/store";
 
@@ -75,7 +130,11 @@ export default defineComponent({
     IonContent,
     IonPage,
     IonButton,
+    IonItemGroup,
+    IonItemDivider,
+    IonInput,
   },
+
   methods: {
     /**
      * @function increase
@@ -124,11 +183,39 @@ export default defineComponent({
       d = d < 10 ? "0" + d : d;
       return y + "-" + m + "-" + d + " ";
     },
+
+    /**
+     * @function updateReviewSetting
+     * @description 更新记忆曲线设定
+     * @param {String} reviewId
+     * @param {String} newVal
+     */
+    updateReviewSetting(reviewId, newVal) {
+      store.commit("updateReviewSetting", {
+        reviewId: reviewId,
+        newVal: parseInt(newVal),
+      });
+    },
   },
+
   data() {
     return {
       time: this.formatDate(store.state.currDate),
+      reviewSettings: store.state.reviewSettings,
+      reviewSetting1: 1,
+      reviewSetting2: 2,
+      reviewSetting3: 4,
+      reviewSetting4: 7,
+      reviewSetting5: 15,
     };
+  },
+
+  mounted() {
+    this.reviewSetting1 = this.reviewSettings.get("1");
+    this.reviewSetting2 = this.reviewSettings.get("2");
+    this.reviewSetting3 = this.reviewSettings.get("3");
+    this.reviewSetting4 = this.reviewSettings.get("4");
+    this.reviewSetting5 = this.reviewSettings.get("5");
   },
 });
 </script>

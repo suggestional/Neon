@@ -10,7 +10,7 @@ export default createStore({
       wrongList: localStorage.getItem("wrongList") || new Queue([]),
       currDate:
         localStorage.getItem("currDate") ||
-        new Date(new Date().toLocaleDateString()),
+        new Date(new Date().toLocaleDateString().replace('-', '/')),
       progress: localStorage.getItem("progress") || new Map(),
       reviewSettings:
         localStorage.getItem("reviewSettings") ||

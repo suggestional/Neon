@@ -98,12 +98,12 @@ export default {
           "undefined"
         ) {
           store.state.progress.set(store.state.fullUnitId, [
-            new Date(store.state.currDate.toLocaleDateString()),
+            new Date(store.state.currDate.toLocaleDateString().replace('-', '/')),
           ]);
         } else {
           store.state.progress
             .get(store.state.fullUnitId)
-            .push(new Date(store.state.currDate.toLocaleDateString()));
+            .push(new Date(store.state.currDate.toLocaleDateString().replace('-', '/')));
         }
 
         // 创建新的复习任务；即使已经存在复习任务，也覆盖之前的复习任务
@@ -114,7 +114,7 @@ export default {
             new ReviewTask(
               store.state.fullUnitId,
               key,
-              new Date(store.state.currDate.toLocaleDateString())
+              new Date(store.state.currDate.toLocaleDateString().replace('-', '/'))
             )
           );
         });

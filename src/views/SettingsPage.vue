@@ -116,47 +116,8 @@ export default defineComponent({
      * @description 下一天
      */
     increase() {
-      /*
-      store.state.currDate = new Date(store.state.currDate.getTime() + (24*3600*1000));
-      this.time = this.formatDate(store.state.currDate);
-       */
-      store.state.currDate = new Date(
-        store.state.currDate.getTime() + 24 * 3600 * 1000
-      );
-      var datetime =
-        store.state.currDate.getFullYear() +
-        "/" +
-        (store.state.currDate.getMonth() + 1) +
-        "/" +
-        store.state.currDate.getDate();
-      let reg = new Date(datetime.replace(/-/g, "/"));
-      this.time = this.formatDate(reg);
-    },
-
-    /**
-     * @function decrease
-     * @description 上一天
-     */
-    decrease() {
-      store.state.currDate = new Date(
-        store.state.currDate.getTime() - 24 * 3600 * 1000
-      );
-      this.time = this.formatDate(store.state.currDate);
-    },
-
-    /**
-     * @function formatDate
-     * @description 格式化日期
-     * @param {Date} date - 要格式化的日期
-     * @return {String} 格式化后的日期
-     */
-    formatDate(date) {
-      var y = date.getFullYear();
-      var m = date.getMonth() + 1;
-      var d = date.getDate();
-      m = m < 10 ? "0" + m : m;
-      d = d < 10 ? "0" + d : d;
-      return y + "-" + m + "-" + d + " ";
+      store.state.currDate = new Date(store.state.currDate.getTime() + (24 * 3600 * 1000));
+      this.time = store.state.currDate.toLocaleDateString();
     },
 
     /**
@@ -175,7 +136,7 @@ export default defineComponent({
 
   data() {
     return {
-      time: this.formatDate(store.state.currDate),
+      time: (new Date(store.state.currDate.toLocaleDateString().replace('-', '/'))).toLocaleDateString(),
       reviewSettings: store.state.reviewSettings,
       reviewSetting1: 1,
       reviewSetting2: 2,

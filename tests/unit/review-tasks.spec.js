@@ -31,7 +31,7 @@ describe("根据记忆曲线列出复习单词（单元）的清单测试", () =
     const fullUnitId1 = "Book0 Unit0";
     const date1 = new Date(new Date().toLocaleDateString());
     const date2 = new Date(date1.getTime() + (24*3600*1000));   // date1 之后的一天
-    const date3 = new Date(date2.getTime() + (24*3600*1000));   // date1 之后的一天
+    const date3 = new Date(date2.getTime() + (24*3600*1000));   // date2 之后的一天
     store.state.debug = true;
 
     test("用户选择显示当前日期的复习清单，那么给出当前日期需要复习单元的数量；给出当前日期需要复习单元的列表；并给出每个单元的复习进度（即当前是第 x 次复习）", () => {

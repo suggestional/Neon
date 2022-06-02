@@ -72,22 +72,6 @@
             ></ion-input>
           </ion-item>
         </ion-item-group>
-
-        <ion-item-group>
-          <ion-item-divider>
-            <ion-label> 开发者选项 </ion-label>
-          </ion-item-divider>
-          <ion-item>
-            <ion-label>当前日期：{{ time }}</ion-label>
-            <ion-button
-              color="primary"
-              fill="clear"
-              @click="increase()"
-              style="float: right"
-              >下一天
-            </ion-button>
-          </ion-item>
-        </ion-item-group>
       </ion-list>
     </ion-content>
   </ion-page>
@@ -104,7 +88,6 @@ import {
   IonItem,
   IonContent,
   IonLabel,
-  IonButton,
   IonItemGroup,
   IonItemDivider,
   IonInput,
@@ -122,7 +105,6 @@ export default defineComponent({
     IonLabel,
     IonContent,
     IonPage,
-    IonButton,
     IonItemGroup,
     IonItemDivider,
     IonInput,
